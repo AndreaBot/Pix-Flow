@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    let imageSearcher = ImageSearcher()
+    var imageSearcher = ImageSearcher()
     
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var image1: UIImageView!
@@ -18,6 +18,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         searchField.delegate = self
+        imageSearcher.delegate = self
     }
 }
 
@@ -52,10 +53,10 @@ extension HomeViewController: UITextFieldDelegate {
 //MARK: - ImageSearcherDelegate
 
 extension HomeViewController: ImageSearcherDelegate {
+    
     func didFindImages(_ image: UIImage?) {
         DispatchQueue.main.async {
             self.image1.image = image
-            
         }
     }
     

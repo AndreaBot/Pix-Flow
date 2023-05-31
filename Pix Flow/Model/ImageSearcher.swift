@@ -16,7 +16,6 @@ struct ImageSearcher {
     
     var delegate: ImageSearcherDelegate?
     
-    
     let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&per_page=1"
     
     
@@ -38,7 +37,7 @@ struct ImageSearcher {
                 
                 if let safeData = data {
                     if let image1Link = parseJSON(safeData) {
-                        //print(image1Link)
+                        fetchImage(with: image1Link)
                     }
                 }
             }
@@ -46,14 +45,14 @@ struct ImageSearcher {
         }
     }
     
-    func parseJSON(_ imageData: Data) -> URL? {
+    func parseJSON(_ imageData: Data) -> String? {
         
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(ImageData.self, from: imageData)
-            let img1 = decodedData.results[0].urls.regular
-            let img1URL = URL(string: img1)
-            return img1URL
+            let img1Link = decodedData.results[0].urls.regular
+            
+            return img1Link
             
         } catch {
             delegate?.didFailWithError(error: error)
@@ -61,5 +60,23 @@ struct ImageSearcher {
         }
     }
     
+    func fetchImage(with urlString: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    delegate?.didFailWithError(error: error!)
+                    return
+                }
+                
+                if let safeData = data {
+                    let image1Data = safeData
+                    let image1 = UIImage(data: image1Data)
+                    delegate?.didFindImages(image1)
+                }
+            }
+            task.resume()
+        }
+    }
     
 }
