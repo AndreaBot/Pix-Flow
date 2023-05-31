@@ -7,9 +7,9 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
-
-    var imageSearcher = ImageSearcher()
+class SearchViewController: UIViewController {
+    
+    var topic: String?
     
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var image1: UIImageView!
@@ -18,13 +18,20 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         searchField.delegate = self
-        imageSearcher.delegate = self
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToResults" {
+            let destinationVC = segue.destination as? ResultsViewController
+            destinationVC?.topic = topic
+        }
     }
 }
 
 //MARK: - UITxtField Delegate
 
-extension HomeViewController: UITextFieldDelegate {
+extension SearchViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchField.endEditing(true)
@@ -41,27 +48,11 @@ extension HomeViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let topic = searchField.text {
-            imageSearcher.getImages(topic)
-            
-        }
+        topic = searchField.text
+        performSegue(withIdentifier: "goToResults", sender: self)
+        
         searchField.text = ""
     }
- 
 }
 
-//MARK: - ImageSearcherDelegate
-
-extension HomeViewController: ImageSearcherDelegate {
-    
-    func didFindImages(_ image: UIImage?) {
-        DispatchQueue.main.async {
-            self.image1.image = image
-        }
-    }
-    
-    func didFailWithError(error: Error) {
-        print(error)
-    }
-}
 
