@@ -21,9 +21,10 @@ struct ImageSearcher {
     
     func getImages(_ query: String)  {
         
-        let searchUrl = "\(baseUrl)&query=\(query)"
-        performRequest(with: searchUrl)
-        
+        if let encodedText = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            let searchUrl = "\(baseUrl)&query=\(encodedText)"
+            performRequest(with: searchUrl)
+        }
     }
     
     func performRequest(with urlString: String) {

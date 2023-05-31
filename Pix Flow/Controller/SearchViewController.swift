@@ -19,6 +19,9 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         searchField.delegate = self
+        
+        let exitKeyboard = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(exitKeyboard)
     }
     
     @IBAction func searchPressed(_ sender: UIButton) {
@@ -26,7 +29,7 @@ class SearchViewController: UIViewController {
         if searchField.text != "" {
             topic = searchField.text
             performSegue(withIdentifier: "goToResults", sender: self)
-            searchField.text = ""
+            searchField.text = nil
         }
     }
     
@@ -62,7 +65,7 @@ extension SearchViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         topic = searchField.text
         performSegue(withIdentifier: "goToResults", sender: self)
-        searchField.text = ""
+        searchField.text = nil
     }
 }
 
