@@ -12,12 +12,22 @@ class SearchViewController: UIViewController {
     var topic: String?
     
     @IBOutlet weak var searchField: UITextField!
-    @IBOutlet weak var image1: UIImageView!
+    @IBOutlet weak var searchButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchField.delegate = self
+    }
+    
+    @IBAction func searchPressed(_ sender: UIButton) {
+        
+        if searchField.text != "" {
+            topic = searchField.text
+            performSegue(withIdentifier: "goToResults", sender: self)
+            searchField.text = ""
+        }
     }
     
     
@@ -28,6 +38,8 @@ class SearchViewController: UIViewController {
         }
     }
 }
+
+
 
 //MARK: - UITxtField Delegate
 
@@ -50,7 +62,6 @@ extension SearchViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         topic = searchField.text
         performSegue(withIdentifier: "goToResults", sender: self)
-        
         searchField.text = ""
     }
 }
