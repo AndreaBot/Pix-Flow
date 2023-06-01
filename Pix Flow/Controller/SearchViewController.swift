@@ -43,7 +43,6 @@ class SearchViewController: UIViewController {
 }
 
 
-
 //MARK: - UITxtField Delegate
 
 extension SearchViewController: UITextFieldDelegate {

@@ -16,18 +16,18 @@ struct ImageSearcher {
     
     var delegate: ImageSearcherDelegate?
     
-    let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&per_page=1"
+    let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&per_page=10"
     
     
-    func getImages(_ query: String)  {
+    func getImages(_ query: String, _ index: Int)  {
         
         if let encodedText = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             let searchUrl = "\(baseUrl)&query=\(encodedText)"
-            performRequest(with: searchUrl)
+            performRequest(with: searchUrl, index  )
         }
     }
     
-    func performRequest(with urlString: String) {
+    func performRequest(with urlString: String, _ index: Int) {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
@@ -37,8 +37,8 @@ struct ImageSearcher {
                 }
                 
                 if let safeData = data {
-                    if let image1Link = parseJSON(safeData) {
-                        fetchImage(with: image1Link)
+                    if let imageString = parseJSON(safeData, index) {
+                        fetchImage(with: imageString)
                     }
                 }
             }
@@ -46,14 +46,14 @@ struct ImageSearcher {
         }
     }
     
-    func parseJSON(_ imageData: Data) -> String? {
+    func parseJSON(_ imageData: Data, _ index: Int) -> String? {
         
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(ImageData.self, from: imageData)
-            let img1Link = decodedData.results[0].urls.regular
+            let imgLink = decodedData.results[index].urls.regular
             
-            return img1Link
+            return imgLink
             
         } catch {
             delegate?.didFailWithError(error: error)
@@ -71,9 +71,9 @@ struct ImageSearcher {
                 }
                 
                 if let safeData = data {
-                    let image1Data = safeData
-                    let image1 = UIImage(data: image1Data)
-                    delegate?.didFindImages(image1)
+                    let imageData = safeData
+                    let image = UIImage(data: imageData)
+                    delegate?.didFindImages(image)
                 }
             }
             task.resume()
