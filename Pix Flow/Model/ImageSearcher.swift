@@ -16,7 +16,7 @@ struct ImageSearcher {
     
     var delegate: ImageSearcherDelegate?
     
-    let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&per_page=10"
+    let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&per_page=20"
     
     
     func getImages(_ query: String, _ index: Int)  {

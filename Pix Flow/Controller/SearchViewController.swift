@@ -19,17 +19,21 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         searchField.delegate = self
-        
-        let exitKeyboard = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
-        view.addGestureRecognizer(exitKeyboard)
+//
+//        let exitKeyboard = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+//        view.addGestureRecognizer(exitKeyboard)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        searchField.text = ""
     }
     
     @IBAction func searchPressed(_ sender: UIButton) {
         
         if searchField.text != "" {
             topic = searchField.text
-            performSegue(withIdentifier: "goToResults", sender: self)
-            searchField.text = nil
+            searchField.endEditing(true)
         }
     }
     
@@ -64,7 +68,7 @@ extension SearchViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         topic = searchField.text
         performSegue(withIdentifier: "goToResults", sender: self)
-        searchField.text = nil
+       
     }
 }
 

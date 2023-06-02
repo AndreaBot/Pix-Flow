@@ -60,7 +60,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9nB-Ft-2g5">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <rect key="frame" x="10" y="103" width="373" height="715"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zb6-g6-srU">
                                     <size key="itemSize" width="128" height="128"/>
@@ -70,10 +70,10 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="xsw-lt-fdc">
-                                        <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="BFW-3Z-6Ch">
-                                            <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -84,9 +84,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Jum-Mi-aDI" firstAttribute="bottom" secondItem="9nB-Ft-2g5" secondAttribute="bottom" id="8Xs-ZF-E04"/>
-                            <constraint firstItem="9nB-Ft-2g5" firstAttribute="leading" secondItem="Jum-Mi-aDI" secondAttribute="leading" id="Fxm-qq-VFy"/>
+                            <constraint firstItem="9nB-Ft-2g5" firstAttribute="leading" secondItem="Jum-Mi-aDI" secondAttribute="leading" constant="10" id="Fxm-qq-VFy"/>
                             <constraint firstItem="9nB-Ft-2g5" firstAttribute="top" secondItem="Jum-Mi-aDI" secondAttribute="top" id="sta-EE-nS7"/>
-                            <constraint firstItem="Jum-Mi-aDI" firstAttribute="trailing" secondItem="9nB-Ft-2g5" secondAttribute="trailing" id="uLY-Mq-EQ9"/>
+                            <constraint firstItem="Jum-Mi-aDI" firstAttribute="trailing" secondItem="9nB-Ft-2g5" secondAttribute="trailing" constant="10" id="uLY-Mq-EQ9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" style="editor" id="Lid-lz-aFf"/>
@@ -108,14 +108,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BeS-Sc-b25">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <rect key="frame" x="5" y="103" width="383" height="715"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WDD-os-blz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="WDD-os-blz" firstAttribute="trailing" secondItem="BeS-Sc-b25" secondAttribute="trailing" id="6zd-y4-m7o"/>
-                            <constraint firstItem="BeS-Sc-b25" firstAttribute="leading" secondItem="WDD-os-blz" secondAttribute="leading" id="E9w-PW-EZI"/>
+                            <constraint firstItem="WDD-os-blz" firstAttribute="trailing" secondItem="BeS-Sc-b25" secondAttribute="trailing" constant="5" id="6zd-y4-m7o"/>
+                            <constraint firstItem="BeS-Sc-b25" firstAttribute="leading" secondItem="WDD-os-blz" secondAttribute="leading" constant="5" id="E9w-PW-EZI"/>
                             <constraint firstItem="WDD-os-blz" firstAttribute="bottom" secondItem="BeS-Sc-b25" secondAttribute="bottom" id="Ey5-Gq-gqw"/>
                             <constraint firstItem="BeS-Sc-b25" firstAttribute="top" secondItem="WDD-os-blz" secondAttribute="top" id="Y9i-WB-alW"/>
                         </constraints>

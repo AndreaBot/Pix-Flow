@@ -28,10 +28,11 @@
                 <constraint firstAttribute="bottom" secondItem="0GZ-r6-kHf" secondAttribute="bottom" id="pvB-Vv-vne"/>
                 <constraint firstItem="0GZ-r6-kHf" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="v6s-KQ-zcJ"/>
             </constraints>
+            <size key="customSize" width="50" height="50"/>
             <connections>
                 <outlet property="imageView" destination="0GZ-r6-kHf" id="Rjj-Ld-vXi"/>
             </connections>
-            <point key="canvasLocation" x="37" y="20"/>
+            <point key="canvasLocation" x="36.641221374045799" y="19.718309859154932"/>
         </collectionViewCell>
     </objects>
 </document>

@@ -21,7 +21,6 @@ class ResultsViewController: UIViewController {
         super.viewDidLoad()
         
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: view.frame.size.width / 2, height: 500)
         collectionView.collectionViewLayout = layout
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
         collectionView.delegate = self
@@ -43,6 +42,7 @@ extension ResultsViewController: UICollectionViewDelegate {
         performSegue(withIdentifier: "goToFullScreen", sender: self)
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToFullScreen" {
             let destinationVC = segue.destination as? FullScreenViewController
@@ -55,7 +55,7 @@ extension ResultsViewController: UICollectionViewDelegate {
 extension ResultsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -67,11 +67,26 @@ extension ResultsViewController: UICollectionViewDataSource {
 }
 
 extension ResultsViewController: UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.size.width / 3, height: 300)
-
+        
+        let photoWidth: CGFloat = 720.0
+        let photoHeight: CGFloat = 1080.0
+        let collectionViewWidth = collectionView.bounds.width
+        
+        let sectionInsetLeftRight: CGFloat = 10.0
+        let contentInsetLeftRight = collectionView.contentInset.left + collectionView.contentInset.right
+        
+        let availableWidth = collectionViewWidth - sectionInsetLeftRight - contentInsetLeftRight
+        
+        let cellWidth = availableWidth / 2.0
+        let cellHeight = (photoHeight / photoWidth) * cellWidth
+        
+        return CGSize(width: cellWidth, height: cellHeight)
     }
+    
 }
+
+
 
 
