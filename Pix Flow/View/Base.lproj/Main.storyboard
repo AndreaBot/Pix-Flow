@@ -92,11 +92,42 @@
                     <navigationItem key="navigationItem" style="editor" id="Lid-lz-aFf"/>
                     <connections>
                         <outlet property="collectionView" destination="9nB-Ft-2g5" id="Vbz-hH-6u9"/>
+                        <segue destination="7v4-Zr-4Nc" kind="show" identifier="goToFullScreen" id="FUP-Te-KUw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B7C-qP-fTA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1707.6335877862596" y="3.5211267605633805"/>
+        </scene>
+        <!--Full Screen View Controller-->
+        <scene sceneID="tMT-9A-iIz">
+            <objects>
+                <viewController id="7v4-Zr-4Nc" customClass="FullScreenViewController" customModule="Pix_Flow" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="suy-Sa-0T2">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BeS-Sc-b25">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="WDD-os-blz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="WDD-os-blz" firstAttribute="trailing" secondItem="BeS-Sc-b25" secondAttribute="trailing" id="6zd-y4-m7o"/>
+                            <constraint firstItem="BeS-Sc-b25" firstAttribute="leading" secondItem="WDD-os-blz" secondAttribute="leading" id="E9w-PW-EZI"/>
+                            <constraint firstItem="WDD-os-blz" firstAttribute="bottom" secondItem="BeS-Sc-b25" secondAttribute="bottom" id="Ey5-Gq-gqw"/>
+                            <constraint firstItem="BeS-Sc-b25" firstAttribute="top" secondItem="WDD-os-blz" secondAttribute="top" id="Y9i-WB-alW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="NEZ-1V-ciP"/>
+                    <connections>
+                        <outlet property="imageView" destination="BeS-Sc-b25" id="qO1-P9-jf2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jqx-J8-Qhp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2488" y="13"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cEq-Dm-Ka0">

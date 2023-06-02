@@ -11,6 +11,7 @@ class ResultsViewController: UIViewController {
     
     var imageSearcher = ImageSearcher()
     var topic: String?
+    var selectedImage: UIImage?
     
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -33,9 +34,20 @@ class ResultsViewController: UIViewController {
 
 extension ResultsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
         
-        print("You tapped me")
+        
+        if let selectedCell = collectionView.cellForItem(at: indexPath) as? MyCollectionViewCell {
+            selectedImage = selectedCell.imageView.image!
+        }
+        
+        performSegue(withIdentifier: "goToFullScreen", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToFullScreen" {
+            let destinationVC = segue.destination as? FullScreenViewController
+            destinationVC?.image = selectedImage
+        }
     }
     
 }

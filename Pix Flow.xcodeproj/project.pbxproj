@@ -18,6 +18,7 @@
 		62343B122A27DEE2009D9E6A /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62343B112A27DEE2009D9E6A /* ResultsViewController.swift */; };
 		62343B152A292E19009D9E6A /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62343B132A292E19009D9E6A /* MyCollectionViewCell.swift */; };
 		62343B162A292E19009D9E6A /* MyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62343B142A292E19009D9E6A /* MyCollectionViewCell.xib */; };
+		62343B182A2A7D69009D9E6A /* FullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62343B172A2A7D69009D9E6A /* FullScreenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		62343B112A27DEE2009D9E6A /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		62343B132A292E19009D9E6A /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		62343B142A292E19009D9E6A /* MyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectionViewCell.xib; sourceTree = "<group>"; };
+		62343B172A2A7D69009D9E6A /* FullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			children = (
 				6213D46E2A252FCE00CF0D74 /* SearchViewController.swift */,
 				62343B112A27DEE2009D9E6A /* ResultsViewController.swift */,
+				62343B172A2A7D69009D9E6A /* FullScreenViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				62343B122A27DEE2009D9E6A /* ResultsViewController.swift in Sources */,
 				62343B152A292E19009D9E6A /* MyCollectionViewCell.swift in Sources */,
 				6213D46F2A252FCE00CF0D74 /* SearchViewController.swift in Sources */,
+				62343B182A2A7D69009D9E6A /* FullScreenViewController.swift in Sources */,
 				6213D46B2A252FCE00CF0D74 /* AppDelegate.swift in Sources */,
 				6213D47F2A2535BA00CF0D74 /* ImageSearcher.swift in Sources */,
 				62343B102A253D97009D9E6A /* Image Data.swift in Sources */,
