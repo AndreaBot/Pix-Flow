@@ -206,6 +206,15 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BeS-Sc-b25">
                                 <rect key="frame" x="5" y="103" width="383" height="715"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4D-7A-lhb">
+                                <rect key="frame" x="315" y="113" width="50" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="arrow.down.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="downloadImage:" destination="7v4-Zr-4Nc" eventType="touchUpInside" id="dHs-vg-nUw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WDD-os-blz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -256,6 +265,7 @@
         <image name="Illustrations" width="5184" height="3456"/>
         <image name="Nature" width="4928" height="3264"/>
         <image name="Space" width="4419" height="3163"/>
+        <image name="arrow.down.circle" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
