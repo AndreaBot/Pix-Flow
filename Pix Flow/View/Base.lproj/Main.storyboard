@@ -18,18 +18,106 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type a keyword" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eiw-6b-9yF">
-                                <rect key="frame" x="132" y="409" width="129" height="34"/>
+                                <rect key="frame" x="77" y="117" width="129" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="search"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkc-te-sHc">
-                                <rect key="frame" x="246" y="409" width="101" height="35"/>
+                                <rect key="frame" x="206" y="117" width="101" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="magnifyingglass" catalog="system"/>
                                 <connections>
                                     <action selector="searchPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UD8-jK-8vR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1p1-Im-tOH">
+                                <rect key="frame" x="21" y="276" width="154" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Cars" backgroundImage="Cars"/>
+                                <connections>
+                                    <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CUd-lJ-ahu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sY6-nD-TPe">
+                                <rect key="frame" x="193" y="276" width="154" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Cities" backgroundImage="Cities"/>
+                                <connections>
+                                    <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jVb-Pa-OgP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iDk-d7-rgh">
+                                <rect key="frame" x="21" y="373" width="154" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Nature" backgroundImage="Nature"/>
+                                <connections>
+                                    <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pev-Ny-Wnd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k9b-vj-tVg">
+                                <rect key="frame" x="193" y="373" width="154" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Abstract" backgroundImage="Abstract"/>
+                                <connections>
+                                    <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qwo-KK-xYv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bGl-C9-1nr">
+                                <rect key="frame" x="21" y="476" width="154" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Space" backgroundImage="Space"/>
+                                <connections>
+                                    <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8eT-dE-OGd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHf-M9-u0q">
+                                <rect key="frame" x="21" y="578" width="154" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="B&amp;W" backgroundImage="B&amp;W"/>
+                                <connections>
+                                    <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Pf-gd-X9z"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LVq-O5-05c">
+                                <rect key="frame" x="193" y="475" width="154" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Animals" backgroundImage="Animals"/>
+                                <connections>
+                                    <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aEt-Z9-4wO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fTU-Em-5K3">
+                                <rect key="frame" x="193" y="578" width="154" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Illustrations" backgroundImage="Illustrations"/>
+                                <connections>
+                                    <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SFy-kk-k0J"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -44,6 +132,14 @@
                     <connections>
                         <outlet property="searchButton" destination="wkc-te-sHc" id="zM5-38-8sc"/>
                         <outlet property="searchField" destination="Eiw-6b-9yF" id="4gy-sa-eNp"/>
+                        <outletCollection property="categoryButtons" destination="1p1-Im-tOH" collectionClass="NSMutableArray" id="Djq-zi-PEF"/>
+                        <outletCollection property="categoryButtons" destination="sY6-nD-TPe" collectionClass="NSMutableArray" id="vGl-qe-dGt"/>
+                        <outletCollection property="categoryButtons" destination="iDk-d7-rgh" collectionClass="NSMutableArray" id="Yp6-CN-HH0"/>
+                        <outletCollection property="categoryButtons" destination="k9b-vj-tVg" collectionClass="NSMutableArray" id="3MN-YV-DTh"/>
+                        <outletCollection property="categoryButtons" destination="bGl-C9-1nr" collectionClass="NSMutableArray" id="50V-vB-5tk"/>
+                        <outletCollection property="categoryButtons" destination="LVq-O5-05c" collectionClass="NSMutableArray" id="xy8-5k-TKF"/>
+                        <outletCollection property="categoryButtons" destination="SHf-M9-u0q" collectionClass="NSMutableArray" id="VMx-dJ-hJb"/>
+                        <outletCollection property="categoryButtons" destination="fTU-Em-5K3" collectionClass="NSMutableArray" id="PK2-Pe-Q4s"/>
                         <segue destination="HaN-mb-Bkd" kind="show" identifier="goToResults" id="q8i-sC-wOn"/>
                     </connections>
                 </viewController>
@@ -152,6 +248,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Abstract" width="6720" height="4480"/>
+        <image name="Animals" width="3254" height="2170"/>
+        <image name="B&amp;W" width="5400" height="3600"/>
+        <image name="Cars" width="1920" height="1280"/>
+        <image name="Cities" width="3465" height="2131"/>
+        <image name="Illustrations" width="5184" height="3456"/>
+        <image name="Nature" width="4928" height="3264"/>
+        <image name="Space" width="4419" height="3163"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

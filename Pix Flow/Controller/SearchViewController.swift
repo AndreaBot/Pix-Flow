@@ -13,15 +13,15 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet var categoryButtons: [UIButton]!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        for button in categoryButtons {
+            button.layer.cornerRadius = 10
+        }
         searchField.delegate = self
-//
-//        let exitKeyboard = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
-//        view.addGestureRecognizer(exitKeyboard)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,6 +37,15 @@ class SearchViewController: UIViewController {
         }
     }
     
+    @IBAction func searchCategory(_ sender: UIButton) {
+        
+        if sender.currentTitle == "B&W" {
+            topic = "monochrome"
+        } else {
+            topic = sender.currentTitle
+        }
+        performSegue(withIdentifier: "goToResults", sender: self)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToResults" {
@@ -68,7 +77,6 @@ extension SearchViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         topic = searchField.text
         performSegue(withIdentifier: "goToResults", sender: self)
-       
     }
 }
 

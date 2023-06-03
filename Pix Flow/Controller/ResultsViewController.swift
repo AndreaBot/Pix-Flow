@@ -13,9 +13,8 @@ class ResultsViewController: UIViewController {
     var topic: String?
     var selectedImage: UIImage?
     
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var image1: UIImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +83,6 @@ extension ResultsViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
-    
 }
 
 

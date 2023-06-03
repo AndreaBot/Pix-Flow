@@ -8,7 +8,7 @@
 import UIKit
 
 class FullScreenViewController: UIViewController {
-
+    
     
     @IBOutlet weak var imageView: UIImageView!
     
@@ -16,12 +16,6 @@ class FullScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         imageView.image = image
-
-       
     }
-    
-
-
 }
