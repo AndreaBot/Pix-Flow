@@ -35,7 +35,7 @@ class FullScreenViewController: UIViewController {
     
     func downloadMessage() {
         let downloadMessage = UIAlertController(title: "Download complete", message: "The image has been saved in your Photos app", preferredStyle: .alert)
-        downloadMessage.addAction(UIAlertAction(title: "OK", style: .default))
+        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { _ in downloadMessage.dismiss(animated: true, completion: nil)} )
         present(downloadMessage, animated: true)
     }
 }
