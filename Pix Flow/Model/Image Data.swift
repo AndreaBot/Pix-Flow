@@ -9,6 +9,7 @@ import Foundation
 
 struct ImageData: Codable {
     
+    let total_pages: Int
     let results: [Result]
 }
 

@@ -22,7 +22,7 @@ class MyCollectionViewCell: UICollectionViewCell {
 
     public func configure(with string: String, _ index: Int) {
         
-        imageSearcher.getImages(string, index)
+        imageSearcher.getImages(string, 20, index)
     }
     
     static func nib() -> UINib {

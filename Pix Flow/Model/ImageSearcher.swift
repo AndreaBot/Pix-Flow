@@ -16,13 +16,14 @@ struct ImageSearcher {
     
     var delegate: ImageSearcherDelegate?
     
-    let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&per_page=20"
+    let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&order_by=popular&per_page=30"
     
     
-    func getImages(_ query: String, _ index: Int)  {
+    func getImages(_ query: String,_ maxPages: Int, _ index: Int)  {
         
+        let numberPage = Int.random(in: 1...maxPages)
         if let encodedText = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            let searchUrl = "\(baseUrl)&query=\(encodedText)"
+            let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(numberPage)"
             performRequest(with: searchUrl, index  )
         }
     }
