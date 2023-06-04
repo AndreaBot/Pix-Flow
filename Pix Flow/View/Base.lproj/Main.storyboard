@@ -277,14 +277,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Abstract" width="6720" height="4480"/>
-        <image name="Animals" width="3254" height="2170"/>
-        <image name="B&amp;W" width="5400" height="3600"/>
-        <image name="Cars" width="1920" height="1280"/>
-        <image name="Cities" width="3465" height="2131"/>
-        <image name="Illustrations" width="5184" height="3456"/>
-        <image name="Nature" width="4928" height="3264"/>
-        <image name="Space" width="4419" height="3163"/>
+        <image name="Abstract" width="1344" height="896"/>
+        <image name="Animals" width="651" height="434"/>
+        <image name="B&amp;W" width="1080" height="720"/>
+        <image name="Cars" width="320" height="213"/>
+        <image name="Cities" width="693" height="426"/>
+        <image name="Illustrations" width="1037" height="691"/>
+        <image name="Nature" width="986" height="653"/>
+        <image name="Space" width="884" height="633"/>
         <image name="arrow.down.circle" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <systemColor name="systemBackgroundColor">
