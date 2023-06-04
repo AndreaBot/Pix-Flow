@@ -19,7 +19,7 @@ class FullScreenViewController: UIViewController {
         imageView.image = image
     }
     
-    @IBAction func downloadImage(_ sender: UIButton) {
+    @IBAction func downloadImage(_ sender: UIBarButtonItem) {
         
         UIImageWriteToSavedPhotosAlbum(image!, self, #selector(savedImage), nil)
     }

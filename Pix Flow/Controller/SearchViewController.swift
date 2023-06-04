@@ -9,18 +9,22 @@ import UIKit
 
 class SearchViewController: UIViewController {
     
-    var topic: String?
+  
     
+    @IBOutlet weak var searchBackground: UIView!
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet var categoryButtons: [UIButton]!
     
+    var topic: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         for button in categoryButtons {
             button.layer.cornerRadius = 10
         }
+        searchBackground.layer.cornerRadius = 10
+        searchButton.layer.cornerRadius = 5
         searchField.delegate = self
     }
     
