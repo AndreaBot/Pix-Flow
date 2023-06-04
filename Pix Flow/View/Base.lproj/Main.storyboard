@@ -156,7 +156,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9nB-Ft-2g5">
-                                <rect key="frame" x="10" y="103" width="373" height="715"/>
+                                <rect key="frame" x="10" y="0.0" width="373" height="778"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zb6-g6-srU">
                                     <size key="itemSize" width="128" height="128"/>
@@ -175,14 +175,34 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tQt-bF-lDD">
+                                <rect key="frame" x="0.0" y="778" width="393" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdP-Tg-CPC">
+                                        <rect key="frame" x="153.66666666666666" y="3" width="86" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Load more"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="IdP-Tg-CPC" firstAttribute="centerY" secondItem="tQt-bF-lDD" secondAttribute="centerY" id="0nG-35-apu"/>
+                                    <constraint firstItem="IdP-Tg-CPC" firstAttribute="centerX" secondItem="tQt-bF-lDD" secondAttribute="centerX" id="7dj-WX-jb6"/>
+                                    <constraint firstAttribute="height" constant="40" id="ZHA-cX-JLF"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Jum-Mi-aDI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Jum-Mi-aDI" firstAttribute="bottom" secondItem="9nB-Ft-2g5" secondAttribute="bottom" id="8Xs-ZF-E04"/>
-                            <constraint firstItem="9nB-Ft-2g5" firstAttribute="leading" secondItem="Jum-Mi-aDI" secondAttribute="leading" constant="10" id="Fxm-qq-VFy"/>
-                            <constraint firstItem="9nB-Ft-2g5" firstAttribute="top" secondItem="Jum-Mi-aDI" secondAttribute="top" id="sta-EE-nS7"/>
-                            <constraint firstItem="Jum-Mi-aDI" firstAttribute="trailing" secondItem="9nB-Ft-2g5" secondAttribute="trailing" constant="10" id="uLY-Mq-EQ9"/>
+                            <constraint firstItem="9nB-Ft-2g5" firstAttribute="leading" secondItem="Jum-Mi-aDI" secondAttribute="leading" constant="10" id="8gl-8e-ufH"/>
+                            <constraint firstItem="Jum-Mi-aDI" firstAttribute="trailing" secondItem="9nB-Ft-2g5" secondAttribute="trailing" constant="10" id="RYE-OG-dbf"/>
+                            <constraint firstItem="Jum-Mi-aDI" firstAttribute="trailing" secondItem="tQt-bF-lDD" secondAttribute="trailing" id="SrT-c4-rOr"/>
+                            <constraint firstItem="tQt-bF-lDD" firstAttribute="leading" secondItem="Jum-Mi-aDI" secondAttribute="leading" id="WHu-3I-bq8"/>
+                            <constraint firstItem="9nB-Ft-2g5" firstAttribute="top" secondItem="1in-Or-P5q" secondAttribute="top" id="Wi0-EX-FAW"/>
+                            <constraint firstItem="tQt-bF-lDD" firstAttribute="top" secondItem="9nB-Ft-2g5" secondAttribute="bottom" id="flP-7m-Ud2"/>
+                            <constraint firstItem="Jum-Mi-aDI" firstAttribute="bottom" secondItem="tQt-bF-lDD" secondAttribute="bottom" id="uwc-CF-uJm"/>
+                            <constraint firstItem="tQt-bF-lDD" firstAttribute="top" secondItem="9nB-Ft-2g5" secondAttribute="bottom" id="vXn-9g-hsL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" style="editor" id="Lid-lz-aFf"/>

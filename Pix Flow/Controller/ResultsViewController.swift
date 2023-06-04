@@ -12,18 +12,25 @@ class ResultsViewController: UIViewController {
     var imageSearcher = ImageSearcher()
     var topic: String?
     var selectedImage: UIImage?
+    var pageNumber = 0
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        pageNumber += 1
         let layout = UICollectionViewFlowLayout()
         collectionView.collectionViewLayout = layout
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+    }
+    
+    @IBAction func loadMorePressed(_ sender: UIButton) {
+        pageNumber += 1
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+        collectionView.reloadData()
     }
 }
 
@@ -54,13 +61,12 @@ extension ResultsViewController: UICollectionViewDelegate {
 extension ResultsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return 6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCollectionViewCell.identifier, for: indexPath) as! MyCollectionViewCell
-        
-        cell.configure(with: topic!, indexPath.row)
+        cell.configure(with: topic!, pageNumber, indexPath.row)
         return cell
     }
 }

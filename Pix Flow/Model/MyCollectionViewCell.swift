@@ -12,6 +12,7 @@ class MyCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
     var imageSearcher = ImageSearcher()
+    
     static let identifier = "MyCollectionViewCell"
     
     
@@ -20,9 +21,9 @@ class MyCollectionViewCell: UICollectionViewCell {
         imageSearcher.delegate = self
     }
 
-    public func configure(with string: String, _ index: Int) {
+    public func configure(with string: String, _ pageNumber: Int, _ index: Int) {
         
-        imageSearcher.getImages(string, 20, index)
+        imageSearcher.getImages(string, pageNumber, index)
     }
     
     static func nib() -> UINib {
