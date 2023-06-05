@@ -28,6 +28,8 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type a keyword" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eiw-6b-9yF">
                                                         <rect key="frame" x="0.0" y="0.0" width="261" height="40"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="search"/>
                                                     </textField>
@@ -203,7 +205,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9nB-Ft-2g5">
-                                <rect key="frame" x="10" y="0.0" width="373" height="778"/>
+                                <rect key="frame" x="10" y="0.0" width="373" height="768"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zb6-g6-srU">
                                     <size key="itemSize" width="128" height="128"/>
@@ -218,29 +220,36 @@
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="BFW-3Z-6Ch">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tQt-bF-lDD">
-                                <rect key="frame" x="0.0" y="778" width="393" height="40"/>
+                                <rect key="frame" x="0.0" y="768" width="393" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdP-Tg-CPC">
-                                        <rect key="frame" x="153.66666666666666" y="3" width="86" height="34"/>
+                                        <rect key="frame" x="153.66666666666666" y="8" width="86" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="Load more"/>
+                                        <connections>
+                                            <action selector="loadMorePressed:" destination="HaN-mb-Bkd" eventType="touchUpInside" id="hSs-hb-Drf"/>
+                                        </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="IdP-Tg-CPC" firstAttribute="centerY" secondItem="tQt-bF-lDD" secondAttribute="centerY" id="0nG-35-apu"/>
                                     <constraint firstItem="IdP-Tg-CPC" firstAttribute="centerX" secondItem="tQt-bF-lDD" secondAttribute="centerX" id="7dj-WX-jb6"/>
-                                    <constraint firstAttribute="height" constant="40" id="ZHA-cX-JLF"/>
+                                    <constraint firstAttribute="height" constant="50" id="ZHA-cX-JLF"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Jum-Mi-aDI"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9nB-Ft-2g5" firstAttribute="leading" secondItem="Jum-Mi-aDI" secondAttribute="leading" constant="10" id="8gl-8e-ufH"/>
                             <constraint firstItem="Jum-Mi-aDI" firstAttribute="trailing" secondItem="9nB-Ft-2g5" secondAttribute="trailing" constant="10" id="RYE-OG-dbf"/>
@@ -330,9 +339,6 @@
         <image name="Nature" width="986" height="653"/>
         <image name="Space" width="884" height="633"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

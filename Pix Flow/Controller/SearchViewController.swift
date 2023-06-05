@@ -25,6 +25,10 @@ class SearchViewController: UIViewController {
         }
         searchBackground.layer.cornerRadius = 10
         searchButton.layer.cornerRadius = 5
+        searchField.attributedPlaceholder = NSAttributedString(
+            string: "Type a keyword",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
         searchField.delegate = self
     }
     

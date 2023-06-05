@@ -20,6 +20,7 @@ class ResultsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageNumber += 1
+        collectionView.backgroundColor = .white
         let layout = UICollectionViewFlowLayout()
         collectionView.collectionViewLayout = layout
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
@@ -61,7 +62,7 @@ extension ResultsViewController: UICollectionViewDelegate {
 extension ResultsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return 30
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
