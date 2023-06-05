@@ -19,6 +19,7 @@
 		62343B152A292E19009D9E6A /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62343B132A292E19009D9E6A /* MyCollectionViewCell.swift */; };
 		62343B162A292E19009D9E6A /* MyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62343B142A292E19009D9E6A /* MyCollectionViewCell.xib */; };
 		62343B182A2A7D69009D9E6A /* FullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62343B172A2A7D69009D9E6A /* FullScreenViewController.swift */; };
+		623B69FA2A2E52BA00DB1563 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 623B69F92A2E52BA00DB1563 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		62343B132A292E19009D9E6A /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		62343B142A292E19009D9E6A /* MyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectionViewCell.xib; sourceTree = "<group>"; };
 		62343B172A2A7D69009D9E6A /* FullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
+		623B69F92A2E52BA00DB1563 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 		6213D45E2A252FCE00CF0D74 = {
 			isa = PBXGroup;
 			children = (
+				623B69F92A2E52BA00DB1563 /* README.md */,
 				6213D4692A252FCE00CF0D74 /* Pix Flow */,
 				6213D4682A252FCE00CF0D74 /* Products */,
 			);
@@ -169,6 +172,7 @@
 			files = (
 				6213D4772A252FCF00CF0D74 /* LaunchScreen.storyboard in Resources */,
 				6213D4742A252FCF00CF0D74 /* Assets.xcassets in Resources */,
+				623B69FA2A2E52BA00DB1563 /* README.md in Resources */,
 				62343B162A292E19009D9E6A /* MyCollectionViewCell.xib in Resources */,
 				6213D4722A252FCE00CF0D74 /* Main.storyboard in Resources */,
 			);
