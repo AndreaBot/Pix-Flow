@@ -8,76 +8,57 @@
 import UIKit
 
 protocol ImageSearcherDelegate {
-    func didFindImages(_ image: UIImage?)
     func didFailWithError(error: Error)
 }
 
-struct ImageSearcher {
+class ImageSearcher {
     
     var delegate: ImageSearcherDelegate?
     
-    let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&order_by=popular&per_page=30"
+    let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&order_by=popular&per_page=20"
     
     
-    func getImages(_ query: String, _ pageNumber: Int, _ index: Int)  {
+    func getImages(_ query: String, _ pageNumber: Int, completion: @escaping ([String]) -> Void) {
+        var imageStringArray: [String] = []
         
         if let encodedText = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(pageNumber)"
-            performRequest(with: searchUrl, index  )
-        }
-    }
-    
-    func performRequest(with urlString: String, _ index: Int) {
-        if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    delegate?.didFailWithError(error: error!)
-                    return
-                }
-                
-                if let safeData = data {
-                    if let imageString = parseJSON(safeData, index) {
-                        fetchImage(with: imageString)
+            let searchUrl = "\(baseUrl)&query=\(String(describing: encodedText))&page=\(pageNumber)"
+            
+            if let url = URL(string: searchUrl) {
+                let session = URLSession(configuration: .default)
+                let task = session.dataTask(with: url) { [self] (data, response, error) in
+                    if let error = error {
+                        delegate?.didFailWithError(error: error)
+                        completion(imageStringArray)
+                        return
                     }
+                    
+                    if let safeData = data {
+                        if let parsedArray = parseJSON(safeData) {
+                            imageStringArray = parsedArray
+                        }
+                    }
+                    completion(imageStringArray)
                 }
+                task.resume()
+            } else {
+                completion(imageStringArray)
             }
-            task.resume()
+        } else {
+            completion(imageStringArray)
         }
     }
     
-    func parseJSON(_ imageData: Data, _ index: Int) -> String? {
-        
+    func parseJSON(_ imageData: Data) -> [String]? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(ImageData.self, from: imageData)
-            let imgLink = decodedData.results[index].urls.regular
-            
-            return imgLink
-            
+            let imageStringArray = decodedData.results.prefix(20).map { $0.urls.small }
+            return Array(imageStringArray)
         } catch {
             delegate?.didFailWithError(error: error)
             return nil
         }
     }
-    
-    func fetchImage(with urlString: String) {
-        if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    delegate?.didFailWithError(error: error!)
-                    return
-                }
-                
-                if let safeData = data {
-                    let imageData = safeData
-                    let image = UIImage(data: imageData)
-                    delegate?.didFindImages(image)
-                }
-            }
-            task.resume()
-        }
-    }
-    
 }
+

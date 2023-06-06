@@ -14,24 +14,41 @@ class ResultsViewController: UIViewController {
     var selectedImage: UIImage?
     var pageNumber = 0
     
+    var allResults: [String] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
         pageNumber += 1
+        
+        collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
         collectionView.backgroundColor = .white
         let layout = UICollectionViewFlowLayout()
         collectionView.collectionViewLayout = layout
-        collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        
+        imageSearcher.getImages(topic!, pageNumber) { [self] images in
+            allResults = images
+        }
     }
     
     @IBAction func loadMorePressed(_ sender: UIButton) {
         pageNumber += 1
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-        collectionView.reloadData()
+        
+        imageSearcher.getImages(topic!, pageNumber) { [self] images in
+            allResults = images
+        }
     }
 }
 
@@ -40,7 +57,6 @@ class ResultsViewController: UIViewController {
 
 extension ResultsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         
         if let selectedCell = collectionView.cellForItem(at: indexPath) as? MyCollectionViewCell {
             selectedImage = selectedCell.imageView.image!
@@ -62,12 +78,12 @@ extension ResultsViewController: UICollectionViewDelegate {
 extension ResultsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return allResults.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCollectionViewCell.identifier, for: indexPath) as! MyCollectionViewCell
-        cell.configure(with: topic!, pageNumber, indexPath.row)
+        cell.configure(with: allResults[indexPath.row])
         return cell
     }
 }
