@@ -15,6 +15,7 @@ class MyCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "MyCollectionViewCell"
     
+    var fullImage: UIImage?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,13 +36,22 @@ class MyCollectionViewCell: UICollectionViewCell {
 
 extension MyCollectionViewCell: ImageSearcherDelegate {
     
-    func didFindImages(_ image: UIImage?) {
+    func didFindSmallImage(_ smallimage: UIImage?) {
         DispatchQueue.main.async {
-            self.imageView.image = image
+            self.imageView.image = smallimage
         }
     }
     
     func didFailWithError(error: Error) {
         print(error)
     }
+    
+    func didFindFullImage( _ fullImage: UIImage?) {
+        DispatchQueue.main.async {
+            self.fullImage = fullImage
+        }
+    }
+
+        
+    
 }

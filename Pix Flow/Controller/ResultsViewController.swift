@@ -11,7 +11,7 @@ class ResultsViewController: UIViewController {
     
     var imageSearcher = ImageSearcher()
     var topic: String?
-    var selectedImage: UIImage?
+    var imageToShowFull: UIImage?
     var pageNumber = 0
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -41,11 +41,9 @@ class ResultsViewController: UIViewController {
 extension ResultsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        
         if let selectedCell = collectionView.cellForItem(at: indexPath) as? MyCollectionViewCell {
-            selectedImage = selectedCell.imageView.image!
+            imageToShowFull = selectedCell.fullImage
         }
-        
         performSegue(withIdentifier: "goToFullScreen", sender: self)
     }
     
@@ -53,10 +51,9 @@ extension ResultsViewController: UICollectionViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToFullScreen" {
             let destinationVC = segue.destination as? FullScreenViewController
-            destinationVC?.image = selectedImage
+            destinationVC?.image = imageToShowFull
         }
     }
-    
 }
 
 extension ResultsViewController: UICollectionViewDataSource {

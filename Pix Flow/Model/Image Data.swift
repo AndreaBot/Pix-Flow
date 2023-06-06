@@ -19,5 +19,7 @@ struct Result: Codable {
     
 
 struct URLS : Codable {
-    let regular : String
+    let small : String
+    let full : String
+    
 }
