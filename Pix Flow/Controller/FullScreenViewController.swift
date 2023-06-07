@@ -12,24 +12,45 @@ class FullScreenViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     
-    var image: UIImage?
+    var imageLink: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = image
+        fetchImage(with: imageLink!)
     }
     
     @IBAction func downloadImage(_ sender: UIBarButtonItem) {
-        
-        UIImageWriteToSavedPhotosAlbum(image!, self, #selector(savedImage), nil)
+
+        UIImageWriteToSavedPhotosAlbum(imageView.image!, self, #selector(saveImage), nil)
     }
-    
-    @objc func savedImage(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer?) {
+
+    @objc func saveImage(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer?) {
         if let error = error {
             print(error)
             return
         } else {
             downloadMessage()
+        }
+    }
+    
+    func fetchImage(with urlString: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    print(error as Any)
+                    return
+                }
+
+                if let safeData = data {
+                    let imageData = safeData
+                    let image = UIImage(data: imageData)
+                    DispatchQueue.main.async {
+                        self.imageView.image = image
+                    }
+                }
+            }
+            task.resume()
         }
     }
     

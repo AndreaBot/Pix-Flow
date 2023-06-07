@@ -15,7 +15,7 @@ class MyCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "MyCollectionViewCell"
     
-    var fullImage: UIImage?
+    var fullImageLink: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,21 +36,37 @@ class MyCollectionViewCell: UICollectionViewCell {
 
 extension MyCollectionViewCell: ImageSearcherDelegate {
     
-    func didFindSmallImage(_ smallimage: UIImage?) {
-        DispatchQueue.main.async {
-            self.imageView.image = smallimage
-        }
+    func didFindImages(_ model: ImageModel) {
+            self.fetchImage(with: model.imgLinkSmall)
+            self.fullImageLink = model.imgLinkFull
     }
     
     func didFailWithError(error: Error) {
-        print(error)
+        print(error as Any)
     }
     
-    func didFindFullImage( _ fullImage: UIImage?) {
-        DispatchQueue.main.async {
-            self.fullImage = fullImage
+    func fetchImage(with urlString: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    print(error! as Any)
+                    return
+                }
+
+                if let safeData = data {
+                    let imageData = safeData
+                    let image = UIImage(data: imageData)
+                    DispatchQueue.main.async {
+                        self.imageView.image = image
+                    }
+                }
+            }
+            task.resume()
         }
     }
+
+    
 
         
     

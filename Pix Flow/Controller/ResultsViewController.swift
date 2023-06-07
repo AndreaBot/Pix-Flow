@@ -11,7 +11,7 @@ class ResultsViewController: UIViewController {
     
     var imageSearcher = ImageSearcher()
     var topic: String?
-    var imageToShowFull: UIImage?
+    var fullImageLink: String?
     var pageNumber = 0
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -42,7 +42,7 @@ extension ResultsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if let selectedCell = collectionView.cellForItem(at: indexPath) as? MyCollectionViewCell {
-            imageToShowFull = selectedCell.fullImage
+            fullImageLink = selectedCell.fullImageLink
         }
         performSegue(withIdentifier: "goToFullScreen", sender: self)
     }
@@ -51,7 +51,7 @@ extension ResultsViewController: UICollectionViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToFullScreen" {
             let destinationVC = segue.destination as? FullScreenViewController
-            destinationVC?.image = imageToShowFull
+            destinationVC?.imageLink = fullImageLink
         }
     }
 }
