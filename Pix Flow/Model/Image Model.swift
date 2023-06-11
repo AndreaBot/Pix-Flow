@@ -11,5 +11,7 @@ struct ImageModel {
     
     let imgLinkSmall: String
     let imgLinkFull: String
-    
+    let photographerName: String
+    let photographerPicLink: String
+    let photographerPageLink: String
 }

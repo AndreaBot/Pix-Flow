@@ -12,6 +12,9 @@ class ResultsViewController: UIViewController {
     var imageSearcher = ImageSearcher()
     var topic: String?
     var fullImageLink: String?
+    var photographerPicLink: String?
+    var photographerName: String?
+    var photographerPageLink: String?
     var pageNumber = 0
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -43,6 +46,9 @@ extension ResultsViewController: UICollectionViewDelegate {
         
         if let selectedCell = collectionView.cellForItem(at: indexPath) as? MyCollectionViewCell {
             fullImageLink = selectedCell.fullImageLink
+            photographerName = selectedCell.photographerName
+            photographerPicLink = selectedCell.photographerProfilePicLink
+            photographerPageLink = selectedCell.photographerPageLink
         }
         performSegue(withIdentifier: "goToFullScreen", sender: self)
     }
@@ -52,6 +58,9 @@ extension ResultsViewController: UICollectionViewDelegate {
         if segue.identifier == "goToFullScreen" {
             let destinationVC = segue.destination as? FullScreenViewController
             destinationVC?.imageLink = fullImageLink
+            destinationVC?.photographerName = photographerName
+            destinationVC?.photographerPicLink = photographerPicLink
+            destinationVC?.photographerPageLink = photographerPageLink
         }
     }
 }

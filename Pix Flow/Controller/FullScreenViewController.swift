@@ -10,47 +10,51 @@ import UIKit
 class FullScreenViewController: UIViewController {
     
     
+    @IBOutlet weak var photographerProfilePicView: UIImageView!
+    @IBOutlet weak var photogtapherNameButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var downloadButton: UIBarButtonItem!
     
+    var PhotoImage: UIImage?
     var imageLink: String?
-    
+    var photographerImage: UIImage?
+    var photographerPicLink: String?
+    var photographerName: String?
+    var photographerPageLink: String?
+
+    var imageSearcher = ImageSearcher()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchImage(with: imageLink!)
+        imageSearcher.fetchImages(with: imageLink ?? "", urlString2: photographerPicLink ?? "") { [weak self] (image1, image2) in
+            DispatchQueue.main.async {
+                self?.imageView.image = image1
+                self?.photographerProfilePicView.image = image2
+            }
+        }
+        photographerProfilePicView.layer.cornerRadius = 18
+        photogtapherNameButton.setTitle(photographerName, for: .normal)
+    }
+    
+    @IBAction func photographerNameButtonPressed(_ sender: UIButton) {
+        if let url = URL(string: photographerPageLink!), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
     }
     
     @IBAction func downloadImage(_ sender: UIBarButtonItem) {
-
+        
         UIImageWriteToSavedPhotosAlbum(imageView.image!, self, #selector(saveImage), nil)
     }
-
+    
     @objc func saveImage(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer?) {
         if let error = error {
             print(error)
             return
         } else {
             downloadMessage()
-        }
-    }
-    
-    func fetchImage(with urlString: String) {
-        if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    print(error as Any)
-                    return
-                }
-
-                if let safeData = data {
-                    let imageData = safeData
-                    let image = UIImage(data: imageData)
-                    DispatchQueue.main.async {
-                        self.imageView.image = image
-                    }
-                }
-            }
-            task.resume()
+            downloadButton.title = "Saved"
+            downloadButton.tintColor = UIColor(red: 0, green: 0.85, blue: 0.2, alpha: 1)
         }
     }
     
@@ -60,3 +64,4 @@ class FullScreenViewController: UIViewController {
         present(downloadMessage, animated: true)
     }
 }
+

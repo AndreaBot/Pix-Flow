@@ -280,27 +280,57 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BeS-Sc-b25">
-                                <rect key="frame" x="5" y="92" width="404" height="770"/>
+                                <rect key="frame" x="10" y="92" width="394" height="720"/>
                             </imageView>
+                            <stackView opaque="NO" contentMode="left" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9nN-g7-rcg" userLabel="Info Stack View">
+                                <rect key="frame" x="10" y="820" width="394" height="35"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y6F-cc-Xg2" userLabel="PhotographerPic Image View">
+                                        <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="ipi-tW-vEb"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ua-0i-8BV">
+                                        <rect key="frame" x="40" y="0.5" width="354" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Photographer Name"/>
+                                        <connections>
+                                            <action selector="photographerNameButtonPressed:" destination="7v4-Zr-4Nc" eventType="touchUpInside" id="9X1-ch-V1a"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="cw8-II-a7p"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WDD-os-blz"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="WDD-os-blz" firstAttribute="trailing" secondItem="BeS-Sc-b25" secondAttribute="trailing" constant="5" id="6zd-y4-m7o"/>
-                            <constraint firstItem="BeS-Sc-b25" firstAttribute="leading" secondItem="WDD-os-blz" secondAttribute="leading" constant="5" id="E9w-PW-EZI"/>
-                            <constraint firstItem="WDD-os-blz" firstAttribute="bottom" secondItem="BeS-Sc-b25" secondAttribute="bottom" id="Ey5-Gq-gqw"/>
-                            <constraint firstItem="BeS-Sc-b25" firstAttribute="top" secondItem="WDD-os-blz" secondAttribute="top" id="Y9i-WB-alW"/>
+                            <constraint firstItem="9nN-g7-rcg" firstAttribute="leading" secondItem="WDD-os-blz" secondAttribute="leading" constant="10" id="Mmu-U6-erg"/>
+                            <constraint firstItem="WDD-os-blz" firstAttribute="bottom" secondItem="BeS-Sc-b25" secondAttribute="bottom" constant="50" id="Thi-SH-5WQ"/>
+                            <constraint firstItem="BeS-Sc-b25" firstAttribute="leading" secondItem="WDD-os-blz" secondAttribute="leading" constant="10" id="VGL-0z-WQa"/>
+                            <constraint firstItem="WDD-os-blz" firstAttribute="trailing" secondItem="9nN-g7-rcg" secondAttribute="trailing" constant="10" id="e4z-ka-HOq"/>
+                            <constraint firstItem="WDD-os-blz" firstAttribute="trailing" secondItem="BeS-Sc-b25" secondAttribute="trailing" constant="10" id="ndA-Gn-fjb"/>
+                            <constraint firstItem="BeS-Sc-b25" firstAttribute="top" secondItem="WDD-os-blz" secondAttribute="top" id="nut-4u-ViZ"/>
+                            <constraint firstItem="9nN-g7-rcg" firstAttribute="bottom" secondItem="WDD-os-blz" secondAttribute="bottom" constant="-7" id="vvw-0L-Nob"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" style="editor" id="NEZ-1V-ciP">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="Rhb-4k-1B9">
+                        <barButtonItem key="rightBarButtonItem" title="Save" style="done" id="Rhb-4k-1B9">
+                            <color key="tintColor" systemColor="tintColor"/>
                             <connections>
                                 <action selector="downloadImage:" destination="7v4-Zr-4Nc" id="LMZ-TU-2jP"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="imageView" destination="BeS-Sc-b25" id="qO1-P9-jf2"/>
+                        <outlet property="downloadButton" destination="Rhb-4k-1B9" id="Ep5-mS-CtX"/>
+                        <outlet property="imageView" destination="BeS-Sc-b25" id="QFU-fz-Q6e"/>
+                        <outlet property="photographerProfilePicView" destination="Y6F-cc-Xg2" id="bIV-xK-Q2Z"/>
+                        <outlet property="photogtapherNameButton" destination="5Ua-0i-8BV" id="IaX-ns-ThU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jqx-J8-Qhp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -340,6 +370,9 @@
         <image name="Space" width="884" height="633"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tintColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>

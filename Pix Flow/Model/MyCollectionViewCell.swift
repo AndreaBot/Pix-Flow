@@ -8,7 +8,7 @@
 import UIKit
 
 class MyCollectionViewCell: UICollectionViewCell {
-
+    
     @IBOutlet weak var imageView: UIImageView!
     
     var imageSearcher = ImageSearcher()
@@ -16,12 +16,15 @@ class MyCollectionViewCell: UICollectionViewCell {
     static let identifier = "MyCollectionViewCell"
     
     var fullImageLink: String?
+    var photographerName: String?
+    var photographerProfilePicLink: String?
+    var photographerPageLink: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         imageSearcher.delegate = self
     }
-
+    
     public func configure(with string: String, _ pageNumber: Int, _ index: Int) {
         
         imageSearcher.getImages(string, pageNumber, index)
@@ -37,8 +40,11 @@ class MyCollectionViewCell: UICollectionViewCell {
 extension MyCollectionViewCell: ImageSearcherDelegate {
     
     func didFindImages(_ model: ImageModel) {
-            self.fetchImage(with: model.imgLinkSmall)
-            self.fullImageLink = model.imgLinkFull
+        self.fetchImage(with: model.imgLinkSmall)
+        self.fullImageLink = model.imgLinkFull
+        self.photographerName = model.photographerName
+        self.photographerProfilePicLink = model.photographerPicLink
+        self.photographerPageLink = model.photographerPageLink
     }
     
     func didFailWithError(error: Error) {
@@ -53,7 +59,7 @@ extension MyCollectionViewCell: ImageSearcherDelegate {
                     print(error! as Any)
                     return
                 }
-
+                
                 if let safeData = data {
                     let imageData = safeData
                     let image = UIImage(data: imageData)
@@ -65,9 +71,4 @@ extension MyCollectionViewCell: ImageSearcherDelegate {
             task.resume()
         }
     }
-
-    
-
-        
-    
 }
