@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -305,13 +306,32 @@
                                     <constraint firstAttribute="height" constant="35" id="cw8-II-a7p"/>
                                 </constraints>
                             </stackView>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C0N-7d-mCk" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="182" y="423" width="50" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="hb8-QQ-JTG"/>
+                                    <constraint firstAttribute="height" constant="50" id="jNs-IT-luq"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" name="AccentColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballTrianglePath"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WDD-os-blz"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9nN-g7-rcg" firstAttribute="leading" secondItem="WDD-os-blz" secondAttribute="leading" constant="10" id="Mmu-U6-erg"/>
+                            <constraint firstItem="C0N-7d-mCk" firstAttribute="centerY" secondItem="suy-Sa-0T2" secondAttribute="centerY" id="N0t-qk-PGd"/>
                             <constraint firstItem="WDD-os-blz" firstAttribute="bottom" secondItem="BeS-Sc-b25" secondAttribute="bottom" constant="50" id="Thi-SH-5WQ"/>
                             <constraint firstItem="BeS-Sc-b25" firstAttribute="leading" secondItem="WDD-os-blz" secondAttribute="leading" constant="10" id="VGL-0z-WQa"/>
+                            <constraint firstItem="C0N-7d-mCk" firstAttribute="centerX" secondItem="suy-Sa-0T2" secondAttribute="centerX" id="ZdZ-gP-E3t"/>
                             <constraint firstItem="WDD-os-blz" firstAttribute="trailing" secondItem="9nN-g7-rcg" secondAttribute="trailing" constant="10" id="e4z-ka-HOq"/>
                             <constraint firstItem="WDD-os-blz" firstAttribute="trailing" secondItem="BeS-Sc-b25" secondAttribute="trailing" constant="10" id="ndA-Gn-fjb"/>
                             <constraint firstItem="BeS-Sc-b25" firstAttribute="top" secondItem="WDD-os-blz" secondAttribute="top" id="nut-4u-ViZ"/>
@@ -329,6 +349,7 @@
                     <connections>
                         <outlet property="downloadButton" destination="Rhb-4k-1B9" id="Ep5-mS-CtX"/>
                         <outlet property="imageView" destination="BeS-Sc-b25" id="QFU-fz-Q6e"/>
+                        <outlet property="loadingView" destination="C0N-7d-mCk" id="aKa-1q-q3S"/>
                         <outlet property="photographerProfilePicView" destination="Y6F-cc-Xg2" id="bIV-xK-Q2Z"/>
                         <outlet property="photogtapherNameButton" destination="5Ua-0i-8BV" id="IaX-ns-ThU"/>
                     </connections>
@@ -369,6 +390,12 @@
         <image name="Nature" width="986" height="653"/>
         <image name="Space" width="884" height="633"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

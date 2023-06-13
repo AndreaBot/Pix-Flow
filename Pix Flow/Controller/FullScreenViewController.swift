@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
+
 
 class FullScreenViewController: UIViewController {
     
@@ -14,6 +16,10 @@ class FullScreenViewController: UIViewController {
     @IBOutlet weak var photogtapherNameButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var downloadButton: UIBarButtonItem!
+    
+    @IBOutlet weak var loadingView: NVActivityIndicatorView!
+    //var color = UIColor(red: 0, green: 0.2, blue: 1, alpha: 1)
+    //var type: NVActivityIndicatorType = "BallRotateChase"
     
     var PhotoImage: UIImage?
     var imageLink: String?
@@ -26,7 +32,9 @@ class FullScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageSearcher.fetchImages(with: imageLink ?? "", urlString2: photographerPicLink ?? "") { [weak self] (image1, image2) in
+        
+        loadingView.startAnimating()
+        imageSearcher.fetchImages(with: imageLink ?? "", urlString2: photographerPicLink ?? "", NVActivityIndicatorView: loadingView) { [weak self] (image1, image2) in
             DispatchQueue.main.async {
                 self?.imageView.image = image1
                 self?.photographerProfilePicView.image = image2

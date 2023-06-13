@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18FFB6893FD822C753460C92 /* Pods_Pix_Flow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C698BE1944EC70A5E3566532 /* Pods_Pix_Flow.framework */; };
 		6213D46B2A252FCE00CF0D74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6213D46A2A252FCE00CF0D74 /* AppDelegate.swift */; };
 		6213D46D2A252FCE00CF0D74 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6213D46C2A252FCE00CF0D74 /* SceneDelegate.swift */; };
 		6213D46F2A252FCE00CF0D74 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6213D46E2A252FCE00CF0D74 /* SearchViewController.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2939C87828BC4C18A5F58341 /* Pods-Pix Flow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pix Flow.release.xcconfig"; path = "Target Support Files/Pods-Pix Flow/Pods-Pix Flow.release.xcconfig"; sourceTree = "<group>"; };
 		6213D4672A252FCE00CF0D74 /* Pix Flow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pix Flow.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6213D46A2A252FCE00CF0D74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6213D46C2A252FCE00CF0D74 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,6 +42,8 @@
 		62343B172A2A7D69009D9E6A /* FullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 		623B69F92A2E52BA00DB1563 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		623B69FB2A2FC07700DB1563 /* Image Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image Model.swift"; sourceTree = "<group>"; };
+		C698BE1944EC70A5E3566532 /* Pods_Pix_Flow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pix_Flow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D89BC45A1ED27DB973C48187 /* Pods-Pix Flow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pix Flow.debug.xcconfig"; path = "Target Support Files/Pods-Pix Flow/Pods-Pix Flow.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18FFB6893FD822C753460C92 /* Pods_Pix_Flow.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +64,8 @@
 				623B69F92A2E52BA00DB1563 /* README.md */,
 				6213D4692A252FCE00CF0D74 /* Pix Flow */,
 				6213D4682A252FCE00CF0D74 /* Products */,
+				D7FDAF7DA8B0195BCF38DB3F /* Pods */,
+				8D0AFFF474091EA6B86A7A7A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,6 +122,23 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8D0AFFF474091EA6B86A7A7A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C698BE1944EC70A5E3566532 /* Pods_Pix_Flow.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D7FDAF7DA8B0195BCF38DB3F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D89BC45A1ED27DB973C48187 /* Pods-Pix Flow.debug.xcconfig */,
+				2939C87828BC4C18A5F58341 /* Pods-Pix Flow.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -122,9 +146,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6213D47B2A252FCF00CF0D74 /* Build configuration list for PBXNativeTarget "Pix Flow" */;
 			buildPhases = (
+				B55B4FB464E3AF658A61C338 /* [CP] Check Pods Manifest.lock */,
 				6213D4632A252FCE00CF0D74 /* Sources */,
 				6213D4642A252FCE00CF0D74 /* Frameworks */,
 				6213D4652A252FCE00CF0D74 /* Resources */,
+				2D328EAB8010F7D435E57DA6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -182,6 +208,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2D328EAB8010F7D435E57DA6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pix Flow/Pods-Pix Flow-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pix Flow/Pods-Pix Flow-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pix Flow/Pods-Pix Flow-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B55B4FB464E3AF658A61C338 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pix Flow-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6213D4632A252FCE00CF0D74 /* Sources */ = {
@@ -254,12 +322,13 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -314,11 +383,13 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -338,6 +409,7 @@
 		};
 		6213D47C2A252FCF00CF0D74 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D89BC45A1ED27DB973C48187 /* Pods-Pix Flow.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -346,11 +418,13 @@
 				DEVELOPMENT_TEAM = DTJ5G5B67W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pix Flow/Info.plist";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -366,6 +440,7 @@
 		};
 		6213D47D2A252FCF00CF0D74 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2939C87828BC4C18A5F58341 /* Pods-Pix Flow.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -374,11 +449,13 @@
 				DEVELOPMENT_TEAM = DTJ5G5B67W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Pix Flow/Info.plist";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

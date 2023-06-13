@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 protocol ImageSearcherDelegate {
     func didFindImages(_ model: ImageModel)
@@ -68,7 +69,7 @@ struct ImageSearcher {
         }
     }
     
-    func fetchImages(with urlString1: String, urlString2: String, completion: @escaping (UIImage?, UIImage?) -> Void) {
+    func fetchImages(with urlString1: String, urlString2: String, NVActivityIndicatorView: NVActivityIndicatorView, completion: @escaping (UIImage?, UIImage?) -> Void) {
         let group = DispatchGroup()
         
         var image1: UIImage?
@@ -123,7 +124,9 @@ struct ImageSearcher {
         }
 
         group.notify(queue: .main) {
+            NVActivityIndicatorView.stopAnimating()
             completion(image1, image2)
+            
         }
     }
 }

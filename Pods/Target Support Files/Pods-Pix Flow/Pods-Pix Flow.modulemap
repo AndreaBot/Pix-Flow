@@ -1,0 +1,6 @@
+framework module Pods_Pix_Flow {
+  umbrella header "Pods-Pix Flow-umbrella.h"
+
+  export *
+  module * { export * }
+}
