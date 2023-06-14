@@ -7,6 +7,7 @@ Pix Flow uses the Unslapsh API to retrieve high quality photos, specifically in 
 The user is able to either search for a category of photos of his/her choice using a UITextField or can alternatively select one of the categories in the home screen.
 
 After selecting the desired photo, a full screen view of the image is presented along with a button to download the files and save it locally in the iPhone Photos app.
+At the bottom of the screen there is also a link to the photographer's own page on Unsplash.com
 
 
 
