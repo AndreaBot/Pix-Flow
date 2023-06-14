@@ -62,7 +62,7 @@ class FullScreenViewController: UIViewController {
         } else {
             downloadMessage()
             downloadButton.title = "Saved"
-            downloadButton.tintColor = UIColor(red: 0, green: 0.85, blue: 0.2, alpha: 1)
+            downloadButton.isEnabled = false
         }
     }
     
