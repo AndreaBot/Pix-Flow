@@ -9,6 +9,7 @@ import UIKit
 
 protocol MyCollectionViewCellDelegate {
     func showAlert()
+    func updatePageNumber(totalPages: Int)
 }
 
 class MyCollectionViewCell: UICollectionViewCell {
@@ -19,7 +20,6 @@ class MyCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "MyCollectionViewCell"
    
-    
     var delegate: MyCollectionViewCellDelegate?
     
     var fullImageLink: String?
@@ -59,10 +59,12 @@ extension MyCollectionViewCell: ImageSearcherDelegate {
     }
     
     func noPhotos() {
-        
         delegate?.showAlert()
     }
     
+    func updateTotalPages(totalPages: Int) {
+        delegate?.updatePageNumber(totalPages: totalPages)
+    }
     
     func fetchImage(with urlString: String) {
         if let url = URL(string: urlString) {

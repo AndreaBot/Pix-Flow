@@ -18,8 +18,6 @@ class FullScreenViewController: UIViewController {
     @IBOutlet weak var downloadButton: UIBarButtonItem!
     
     @IBOutlet weak var loadingView: NVActivityIndicatorView!
-    //var color = UIColor(red: 0, green: 0.2, blue: 1, alpha: 1)
-    //var type: NVActivityIndicatorType = "BallRotateChase"
     
     var PhotoImage: UIImage?
     var imageLink: String?

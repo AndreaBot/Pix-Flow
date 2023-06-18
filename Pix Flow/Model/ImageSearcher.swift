@@ -12,7 +12,9 @@ protocol ImageSearcherDelegate {
     func didFindImages(_ model: ImageModel)
     func didFailWithError(error: Error)
     func noPhotos()
+    func updateTotalPages(totalPages: Int)
 }
+
 
 struct ImageSearcher {
     
@@ -58,9 +60,10 @@ struct ImageSearcher {
             let decodedData = try decoder.decode(ImageData.self, from: imageData)
             
             let totalPhotos = decodedData.total
+            let totalPages = decodedData.total_pages
+            delegate?.updateTotalPages(totalPages: totalPages)
 
             if totalPhotos < imagesPerPage {
-                
                 delegate?.noPhotos()
                 return nil
 
@@ -81,8 +84,6 @@ struct ImageSearcher {
             return nil
         }
     }
-    
-
     
     func fetchImages(with urlString1: String, urlString2: String, NVActivityIndicatorView: NVActivityIndicatorView, completion: @escaping (UIImage?, UIImage?) -> Void) {
         let group = DispatchGroup()
@@ -141,7 +142,6 @@ struct ImageSearcher {
         group.notify(queue: .main) {
             NVActivityIndicatorView.stopAnimating()
             completion(image1, image2)
-            
         }
     }
 }

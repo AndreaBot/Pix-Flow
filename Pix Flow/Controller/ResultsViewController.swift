@@ -17,6 +17,7 @@ class ResultsViewController: UIViewController {
     var photographerName: String?
     var photographerPageLink: String?
     var pageNumber = 0
+    var totalPageNumber: Int?
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var loadMoreButton: UIButton!
@@ -31,26 +32,33 @@ class ResultsViewController: UIViewController {
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
-        
     }
     
     @IBAction func loadMorePressed(_ sender: UIButton) {
-        pageNumber += 1
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-        collectionView.reloadData()
+        if pageNumber + 2 <= totalPageNumber! {   //THE LAST PAGE WON'T HAVE ENOUGH IMAGES TO FILL EACH CELL SO IT GETS SKIPPED (HENCE THE +2)
+            pageNumber += 1
+            collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            collectionView.reloadData()
+        } else {
+            loadMoreButton.isEnabled = false
+            let alert = UIAlertController(title: "End of results", message: "No images left to display.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+        }
     }
 }
 
-//MARK: - ImageSearcherDelegate2
+
+//MARK: - MyCollectionViewCellDelegate
 
 extension ResultsViewController: MyCollectionViewCellDelegate {
-    
+
     func showAlert() {
         DispatchQueue.main.async {
-            self.loadMoreButton.isEnabled = false
+            self.loadMoreButton.alpha = 0
             
             let label = UILabel()
-            label.text = "No photos found \nTry a different search"
+            label.text = "No photos found \nTry a different search."
             label.numberOfLines = 2
             label.font = UIFont.systemFont(ofSize: 20)
             label.textColor = UIColor.black
@@ -66,6 +74,10 @@ extension ResultsViewController: MyCollectionViewCellDelegate {
             self.view.addSubview(label)
             
         }
+    }
+
+    func updatePageNumber(totalPages: Int) {
+        totalPageNumber = totalPages
     }
 }
 
