@@ -35,7 +35,7 @@ class ResultsViewController: UIViewController {
     }
     
     @IBAction func loadMorePressed(_ sender: UIButton) {
-        if pageNumber + 2 <= totalPageNumber! {   //THE LAST PAGE WON'T HAVE ENOUGH IMAGES TO FILL EACH CELL SO IT GETS SKIPPED (HENCE THE +2)
+        if pageNumber + 1 < totalPageNumber! {   //THE LAST PAGE WON'T HAVE ENOUGH IMAGES TO FILL EACH CELL SO IT GETS SKIPPED
             pageNumber += 1
             collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             collectionView.reloadData()
