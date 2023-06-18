@@ -10,6 +10,7 @@ import UIKit
 class ResultsViewController: UIViewController {
     
     var imageSearcher = ImageSearcher()
+    
     var topic: String?
     var fullImageLink: String?
     var photographerPicLink: String?
@@ -18,6 +19,7 @@ class ResultsViewController: UIViewController {
     var pageNumber = 0
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var loadMoreButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -29,12 +31,41 @@ class ResultsViewController: UIViewController {
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+        
     }
     
     @IBAction func loadMorePressed(_ sender: UIButton) {
         pageNumber += 1
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
         collectionView.reloadData()
+    }
+}
+
+//MARK: - ImageSearcherDelegate2
+
+extension ResultsViewController: MyCollectionViewCellDelegate {
+    
+    func showAlert() {
+        DispatchQueue.main.async {
+            self.loadMoreButton.isEnabled = false
+            
+            let label = UILabel()
+            label.text = "No photos found \nTry a different search"
+            label.numberOfLines = 2
+            label.font = UIFont.systemFont(ofSize: 20)
+            label.textColor = UIColor.black
+            label.textAlignment = .center
+            label.center = self.view.center
+            let labelWidth: CGFloat = 200
+            let labelHeight: CGFloat = 100
+            
+            label.frame = CGRect(x: self.view.center.x - (labelWidth / 2),
+                                 y: self.view.center.y - (labelHeight / 2),
+                                 width: labelWidth,
+                                 height: labelHeight)
+            self.view.addSubview(label)
+            
+        }
     }
 }
 
@@ -68,12 +99,13 @@ extension ResultsViewController: UICollectionViewDelegate {
 extension ResultsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return imageSearcher.imagesPerPage
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCollectionViewCell.identifier, for: indexPath) as! MyCollectionViewCell
         cell.configure(with: topic!, pageNumber, indexPath.row)
+        cell.delegate = self
         return cell
     }
 }

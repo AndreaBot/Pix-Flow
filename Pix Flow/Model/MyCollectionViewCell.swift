@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol MyCollectionViewCellDelegate {
+    func showAlert()
+}
+
 class MyCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
@@ -14,6 +18,9 @@ class MyCollectionViewCell: UICollectionViewCell {
     var imageSearcher = ImageSearcher()
     
     static let identifier = "MyCollectionViewCell"
+   
+    
+    var delegate: MyCollectionViewCellDelegate?
     
     var fullImageLink: String?
     var photographerName: String?
@@ -38,7 +45,7 @@ class MyCollectionViewCell: UICollectionViewCell {
 //MARK: - ImageSearcherDelegate
 
 extension MyCollectionViewCell: ImageSearcherDelegate {
-    
+
     func didFindImages(_ model: ImageModel) {
         self.fetchImage(with: model.imgLinkSmall)
         self.fullImageLink = model.imgLinkFull
@@ -50,6 +57,12 @@ extension MyCollectionViewCell: ImageSearcherDelegate {
     func didFailWithError(error: Error) {
         print(error as Any)
     }
+    
+    func noPhotos() {
+        
+        delegate?.showAlert()
+    }
+    
     
     func fetchImage(with urlString: String) {
         if let url = URL(string: urlString) {

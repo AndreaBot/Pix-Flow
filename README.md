@@ -1,5 +1,5 @@
 
-Struggling to find some new cool wallpaperss for your phone?
+Struggling to find some new cool wallpapers for your phone?
 
 Stress no more, Introducing Pix Flow!
 

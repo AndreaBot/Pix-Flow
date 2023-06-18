@@ -11,19 +11,23 @@ import NVActivityIndicatorView
 protocol ImageSearcherDelegate {
     func didFindImages(_ model: ImageModel)
     func didFailWithError(error: Error)
+    func noPhotos()
 }
 
 struct ImageSearcher {
     
     var delegate: ImageSearcherDelegate?
     
-    let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&order_by=popular&per_page=30"
+    var imagesPerPage = 30
+    
+    let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&order_by=popular"
     
     
     func getImages(_ query: String, _ pageNumber: Int, _ index: Int)  {
         
         if let encodedText = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(pageNumber)"
+            let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(pageNumber)&per_page=\(imagesPerPage)"
+            
             performRequest(with: searchUrl, index  )
         }
     }
@@ -32,12 +36,12 @@ struct ImageSearcher {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    delegate?.didFailWithError(error: error!)
+                if let error = error {
+                    delegate?.didFailWithError(error: error)
                     return
                 }
-                
                 if let safeData = data {
+                    
                     if let imageModel = parseJSON(safeData, index) {
                         delegate?.didFindImages(imageModel)
                     }
@@ -53,28 +57,39 @@ struct ImageSearcher {
         do {
             let decodedData = try decoder.decode(ImageData.self, from: imageData)
             
-            let imgLinkSmall = decodedData.results[index].urls.small
-            let imgLinkFull = decodedData.results[index].urls.full
-            let photographerName = decodedData.results[index].user.name
-            let photographerPicLink = decodedData.results[index].user.profile_image.medium
-            let photographerPageLink = decodedData.results[index].user.links.html
-            
-            let imageModel = ImageModel(imgLinkSmall: imgLinkSmall, imgLinkFull: imgLinkFull, photographerName: photographerName, photographerPicLink: photographerPicLink, photographerPageLink: photographerPageLink)
-            
-            return imageModel
-            
+            let totalPhotos = decodedData.total
+
+            if totalPhotos < imagesPerPage {
+                
+                delegate?.noPhotos()
+                return nil
+
+            } else {
+                
+                let imgLinkSmall = decodedData.results[index].urls.small
+                let imgLinkFull = decodedData.results[index].urls.full
+                let photographerName = decodedData.results[index].user.name
+                let photographerPicLink = decodedData.results[index].user.profile_image.medium
+                let photographerPageLink = decodedData.results[index].user.links.html
+                
+                let imageModel = ImageModel(imgLinkSmall: imgLinkSmall, imgLinkFull: imgLinkFull, photographerName: photographerName, photographerPicLink: photographerPicLink, photographerPageLink: photographerPageLink)
+                
+                return imageModel
+            }
         } catch {
             delegate?.didFailWithError(error: error)
             return nil
         }
     }
     
+
+    
     func fetchImages(with urlString1: String, urlString2: String, NVActivityIndicatorView: NVActivityIndicatorView, completion: @escaping (UIImage?, UIImage?) -> Void) {
         let group = DispatchGroup()
         
         var image1: UIImage?
         var image2: UIImage?
-
+        
         if let url1 = URL(string: urlString1) {
             let session1 = URLSession(configuration: .default)
             group.enter()
@@ -98,7 +113,7 @@ struct ImageSearcher {
             }
             task1.resume()
         }
-
+        
         if let url2 = URL(string: urlString2) {
             let session2 = URLSession(configuration: .default)
             group.enter()
@@ -122,7 +137,7 @@ struct ImageSearcher {
             }
             task2.resume()
         }
-
+        
         group.notify(queue: .main) {
             NVActivityIndicatorView.stopAnimating()
             completion(image1, image2)
@@ -130,3 +145,4 @@ struct ImageSearcher {
         }
     }
 }
+
