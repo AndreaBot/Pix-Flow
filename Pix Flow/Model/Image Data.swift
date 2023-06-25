@@ -37,3 +37,4 @@ struct URLS : Codable {
     let small : String
     let full : String
 }
+

@@ -19,8 +19,7 @@ protocol ImageSearcherDelegate {
 struct ImageSearcher {
     
     var delegate: ImageSearcherDelegate?
-    
-    var imagesPerPage = 30
+    static let imagesPerPage = 30
     
     let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&order_by=popular"
     
@@ -28,7 +27,7 @@ struct ImageSearcher {
     func getImages(_ query: String, _ pageNumber: Int, _ index: Int)  {
         
         if let encodedText = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(pageNumber)&per_page=\(imagesPerPage)"
+            let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(pageNumber)&per_page=\(ImageSearcher.imagesPerPage)"
             
             performRequest(with: searchUrl, index  )
         }
@@ -60,10 +59,10 @@ struct ImageSearcher {
             let decodedData = try decoder.decode(ImageData.self, from: imageData)
             
             let totalPhotos = decodedData.total
-            let totalPages = decodedData.total_pages
+            let totalPages = decodedData.total_pages - 1
             delegate?.updateTotalPages(totalPages: totalPages)
 
-            if totalPhotos < imagesPerPage {
+            if totalPhotos < ImageSearcher.imagesPerPage {
                 delegate?.noPhotos()
                 return nil
 
@@ -85,11 +84,13 @@ struct ImageSearcher {
         }
     }
     
-    func fetchImages(with urlString1: String, urlString2: String, NVActivityIndicatorView: NVActivityIndicatorView, completion: @escaping (UIImage?, UIImage?) -> Void) {
+    static func fetchImages(with urlString1: String, urlString2: String, NVActivityIndicatorView: NVActivityIndicatorView, completion: @escaping (UIImage?, UIImage?) -> Void) {
         let group = DispatchGroup()
         
         var image1: UIImage?
         var image2: UIImage?
+        
+        NVActivityIndicatorView.startAnimating()
         
         if let url1 = URL(string: urlString1) {
             let session1 = URLSession(configuration: .default)

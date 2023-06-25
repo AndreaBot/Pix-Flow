@@ -8,25 +8,26 @@
 import UIKit
 
 class ResultsViewController: UIViewController {
-    
-    var imageSearcher = ImageSearcher()
-    
+
     var topic: String?
     var fullImageLink: String?
     var photographerPicLink: String?
     var photographerName: String?
     var photographerPageLink: String?
-    var pageNumber = 0
-    var totalPageNumber: Int?
+    var currentPageNumber = 1
+    var totalPageNumber = 0
     
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var loadMoreButton: UIButton!
-    
+    @IBOutlet weak var nextPageButton: UIButton!
+    @IBOutlet weak var prevPageButton: UIButton!
+    @IBOutlet weak var pageCountLabel: UILabel!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageNumber += 1
-        collectionView.backgroundColor = .white
+        
+        prevPageButton.isEnabled = false
+        collectionView.backgroundColor = .systemBackground
         let layout = UICollectionViewFlowLayout()
         collectionView.collectionViewLayout = layout
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
@@ -34,16 +35,38 @@ class ResultsViewController: UIViewController {
         collectionView.dataSource = self
     }
     
-    @IBAction func loadMorePressed(_ sender: UIButton) {
-        if pageNumber + 1 < totalPageNumber! {   //THE LAST PAGE WON'T HAVE ENOUGH IMAGES TO FILL EACH CELL SO IT GETS SKIPPED
-            pageNumber += 1
+    @IBAction func prevPagePressed(_ sender: UIButton) {
+        
+        nextPageButton.isEnabled = true
+        
+        if currentPageNumber > 1 {
+            currentPageNumber -= 1
+            pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber)"
             collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-            collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            if currentPageNumber == 1 {
+                prevPageButton.isEnabled = false
+            }
         } else {
-            loadMoreButton.isEnabled = false
-            let alert = UIAlertController(title: "End of results", message: "No images left to display.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
+            prevPageButton.isEnabled = false
+        }
+    }
+    
+    @IBAction func nextPagePressed(_ sender: UIButton) {
+        
+        if currentPageNumber < totalPageNumber {
+            currentPageNumber += 1
+            prevPageButton.isEnabled = true
+            pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber)"
+            collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            if currentPageNumber == totalPageNumber {
+                nextPageButton.isEnabled = false
+            }
         }
     }
 }
@@ -53,15 +76,17 @@ class ResultsViewController: UIViewController {
 
 extension ResultsViewController: MyCollectionViewCellDelegate {
 
-    func showAlert() {
+    func showMessage() {
         DispatchQueue.main.async {
-            self.loadMoreButton.alpha = 0
+            self.nextPageButton.isHidden = true
+            self.prevPageButton.isHidden = true
+            self.pageCountLabel.isHidden = true
             
             let label = UILabel()
             label.text = "No photos found \nTry a different search."
             label.numberOfLines = 2
             label.font = UIFont.systemFont(ofSize: 20)
-            label.textColor = UIColor.black
+            label.textColor = UIColor(named: "Label Color")
             label.textAlignment = .center
             label.center = self.view.center
             let labelWidth: CGFloat = 200
@@ -76,8 +101,11 @@ extension ResultsViewController: MyCollectionViewCellDelegate {
         }
     }
 
-    func updatePageNumber(totalPages: Int) {
+    func updateTotalPageNumber(totalPages: Int) {
         totalPageNumber = totalPages
+        DispatchQueue.main.async { [self] in
+            pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber)"
+        }
     }
 }
 
@@ -111,12 +139,12 @@ extension ResultsViewController: UICollectionViewDelegate {
 extension ResultsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageSearcher.imagesPerPage
+        return ImageSearcher.imagesPerPage
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCollectionViewCell.identifier, for: indexPath) as! MyCollectionViewCell
-        cell.configure(with: topic!, pageNumber, indexPath.row)
+        cell.configure(with: topic!, currentPageNumber, indexPath.row)
         cell.delegate = self
         return cell
     }

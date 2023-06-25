@@ -8,8 +8,8 @@
 import UIKit
 
 protocol MyCollectionViewCellDelegate {
-    func showAlert()
-    func updatePageNumber(totalPages: Int)
+    func showMessage()
+    func updateTotalPageNumber(totalPages: Int)
 }
 
 class MyCollectionViewCell: UICollectionViewCell {
@@ -59,11 +59,11 @@ extension MyCollectionViewCell: ImageSearcherDelegate {
     }
     
     func noPhotos() {
-        delegate?.showAlert()
+        delegate?.showMessage()
     }
     
     func updateTotalPages(totalPages: Int) {
-        delegate?.updatePageNumber(totalPages: totalPages)
+        delegate?.updateTotalPageNumber(totalPages: totalPages)
     }
     
     func fetchImage(with urlString: String) {

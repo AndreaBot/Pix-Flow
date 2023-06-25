@@ -15,11 +15,13 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet var categoryButtons: [UIButton]!
-    
+
     var topic: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         for button in categoryButtons {
             button.layer.cornerRadius = 10
         }
@@ -30,6 +32,13 @@ class SearchViewController: UIViewController {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
         )
         searchField.delegate = self
+        let exitKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+           view.addGestureRecognizer(exitKeyboard)
+        
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,6 +51,7 @@ class SearchViewController: UIViewController {
         if searchField.text != "" {
             topic = searchField.text
             searchField.endEditing(true)
+            performSegue(withIdentifier: "goToResults", sender: self)
         }
     }
     
@@ -52,7 +62,9 @@ class SearchViewController: UIViewController {
         } else {
             topic = sender.currentTitle
         }
+        searchField.endEditing(true)
         performSegue(withIdentifier: "goToResults", sender: self)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -67,25 +79,14 @@ class SearchViewController: UIViewController {
 //MARK: - UITxtField Delegate
 
 extension SearchViewController: UITextFieldDelegate {
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchField.endEditing(true)
-        return true
-    }
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.text != "" {
-            return true
-        } else {
-            textField.placeholder = "Type a keyword"
-            return false
+        if searchField.text != "" {
+            searchField.endEditing(true)
+            topic = textField.text
+            performSegue(withIdentifier: "goToResults", sender: self)
         }
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        topic = searchField.text
-        performSegue(withIdentifier: "goToResults", sender: self)
+            return true
     }
 }
-
 
