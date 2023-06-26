@@ -29,7 +29,7 @@ class FullScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let attributedString = NSMutableAttributedString(string: "\(photographerName!) on Unsplash.com")
 
         attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 20), range: NSRange(location: 0, length: photographerName!.count))

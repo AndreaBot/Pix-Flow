@@ -22,6 +22,10 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let imageView = UIImageView(image: UIImage(named: "VC Title"))
+        imageView.contentMode = .scaleAspectFit
+        navigationItem.titleView = imageView
+        
         for button in categoryButtons {
             button.layer.cornerRadius = 10
         }
