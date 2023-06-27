@@ -19,15 +19,15 @@ protocol ImageSearcherDelegate {
 struct ImageSearcher {
     
     var delegate: ImageSearcherDelegate?
+    
     static let imagesPerPage = 30
-    
-    let baseUrl = "https://api.unsplash.com/search/photos/?client_id=GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4&orientation=portrait&order_by=popular"
-    
+    static let apiKey = "GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4"
+    let baseUrl = "https://api.unsplash.com/search/photos/?orientation=portrait&order_by=popular"
     
     func getImages(_ query: String, _ pageNumber: Int, _ index: Int)  {
         
         if let encodedText = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(pageNumber)&per_page=\(ImageSearcher.imagesPerPage)"
+            let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(pageNumber)&per_page=\(ImageSearcher.imagesPerPage)&client_id=\(ImageSearcher.apiKey)"
             
             performRequest(with: searchUrl, index  )
         }
@@ -73,8 +73,9 @@ struct ImageSearcher {
                 let photographerName = decodedData.results[index].user.name
                 let photographerPicLink = decodedData.results[index].user.profile_image.medium
                 let photographerPageLink = decodedData.results[index].user.links.html
+                let downloadLocation = decodedData.results[index].links.download_location
                 
-                let imageModel = ImageModel(imgLinkSmall: imgLinkSmall, imgLinkFull: imgLinkFull, photographerName: photographerName, photographerPicLink: photographerPicLink, photographerPageLink: photographerPageLink)
+                let imageModel = ImageModel(imgLinkSmall: imgLinkSmall, imgLinkFull: imgLinkFull, photographerName: photographerName, photographerPicLink: photographerPicLink, photographerPageLink: photographerPageLink, downloadLocation: downloadLocation)
                 
                 return imageModel
             }

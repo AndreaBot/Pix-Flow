@@ -26,6 +26,7 @@ class MyCollectionViewCell: UICollectionViewCell {
     var photographerName: String?
     var photographerProfilePicLink: String?
     var photographerPageLink: String?
+    var downloadLocation: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,6 +53,7 @@ extension MyCollectionViewCell: ImageSearcherDelegate {
         self.photographerName = model.photographerName
         self.photographerProfilePicLink = model.photographerPicLink
         self.photographerPageLink = model.photographerPageLink
+        self.downloadLocation = model.downloadLocation
     }
     
     func didFailWithError(error: Error) {

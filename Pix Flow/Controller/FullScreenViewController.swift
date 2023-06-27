@@ -25,6 +25,9 @@ class FullScreenViewController: UIViewController {
     var photographerPicLink: String?
     var photographerName: String?
     var photographerPageLink: String?
+    var downloadLocation: String?
+    
+    let successImage = UIImage(systemName: "checkmark.circle")
 
 
     override func viewDidLoad() {
@@ -69,13 +72,20 @@ class FullScreenViewController: UIViewController {
             downloadMessage()
             downloadButton.title = "Saved"
             downloadButton.isEnabled = false
+            triggerDownloadCount()
         }
     }
     
     func downloadMessage() {
+        
         let downloadMessage = UIAlertController(title: "Download complete", message: "The image has been saved in your Photos app", preferredStyle: .alert)
         Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { _ in downloadMessage.dismiss(animated: true, completion: nil)} )
         present(downloadMessage, animated: true)
+    }
+    
+    func triggerDownloadCount() {
+        let downloadLocation = URL(string: "\(downloadLocation!)&client_id=\(ImageSearcher.apiKey)")
+        URLSession.shared.dataTask(with: downloadLocation!).resume()
     }
 }
 

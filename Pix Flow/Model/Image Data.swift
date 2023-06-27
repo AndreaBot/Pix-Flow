@@ -17,6 +17,7 @@ struct ImageData: Codable {
 struct Result: Codable {
     let urls: URLS
     let user: User
+    let links: Link
 }
 
 struct User: Codable {
@@ -36,5 +37,9 @@ struct Links: Codable {
 struct URLS : Codable {
     let small : String
     let full : String
+}
+
+struct Link: Codable {
+    let download_location: String
 }
 

@@ -14,6 +14,7 @@ class ResultsViewController: UIViewController {
     var photographerPicLink: String?
     var photographerName: String?
     var photographerPageLink: String?
+    var downloadLocation: String?
     var currentPageNumber = 1
     var totalPageNumber = 0
     
@@ -120,6 +121,7 @@ extension ResultsViewController: UICollectionViewDelegate {
             photographerName = selectedCell.photographerName
             photographerPicLink = selectedCell.photographerProfilePicLink
             photographerPageLink = selectedCell.photographerPageLink
+            downloadLocation = selectedCell.downloadLocation
         }
         performSegue(withIdentifier: "goToFullScreen", sender: self)
     }
@@ -132,6 +134,7 @@ extension ResultsViewController: UICollectionViewDelegate {
             destinationVC?.photographerName = photographerName
             destinationVC?.photographerPicLink = photographerPicLink
             destinationVC?.photographerPageLink = photographerPageLink
+            destinationVC?.downloadLocation = downloadLocation
         }
     }
 }

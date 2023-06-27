@@ -14,4 +14,5 @@ struct ImageModel {
     let photographerName: String
     let photographerPicLink: String
     let photographerPageLink: String
+    let downloadLocation: String
 }

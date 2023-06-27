@@ -308,7 +308,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BeS-Sc-b25">
-                                <rect key="frame" x="10" y="92" width="394" height="720"/>
+                                <rect key="frame" x="10" y="92.5" width="394" height="719"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="left" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9nN-g7-rcg" userLabel="Info Stack View">
                                 <rect key="frame" x="10" y="820" width="394" height="35"/>
@@ -366,7 +366,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NEZ-1V-ciP">
-                        <barButtonItem key="rightBarButtonItem" title="Save" style="done" id="Rhb-4k-1B9">
+                        <barButtonItem key="rightBarButtonItem" title="Save" style="plain" id="Rhb-4k-1B9">
                             <color key="tintColor" systemColor="tintColor"/>
                             <connections>
                                 <action selector="downloadImage:" destination="7v4-Zr-4Nc" id="LMZ-TU-2jP"/>
