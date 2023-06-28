@@ -85,7 +85,7 @@ struct ImageSearcher {
         }
     }
     
-    static func fetchImages(with urlString1: String, urlString2: String, NVActivityIndicatorView: NVActivityIndicatorView, completion: @escaping (UIImage?, UIImage?) -> Void) {
+    static func fetchImages(with urlString1: String, urlString2: String, NVActivityIndicatorView: NVActivityIndicatorView, _ button: UIBarButtonItem, completion: @escaping (UIImage?, UIImage?) -> Void) {
         let group = DispatchGroup()
         
         var image1: UIImage?
@@ -144,6 +144,7 @@ struct ImageSearcher {
         group.notify(queue: .main) {
             NVActivityIndicatorView.stopAnimating()
             completion(image1, image2)
+            button.isEnabled = true
         }
     }
 }

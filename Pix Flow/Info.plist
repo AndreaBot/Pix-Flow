@@ -4,8 +4,6 @@
 <dict>
 	<key></key>
 	<string></string>
-	<key>image</key>
-	<string>successImage</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

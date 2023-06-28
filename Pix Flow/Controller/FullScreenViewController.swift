@@ -11,7 +11,6 @@ import NVActivityIndicatorView
 
 class FullScreenViewController: UIViewController {
     
-    
     @IBOutlet weak var photographerProfilePicView: UIImageView!
     @IBOutlet weak var photogtapherNameButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
@@ -27,11 +26,10 @@ class FullScreenViewController: UIViewController {
     var photographerPageLink: String?
     var downloadLocation: String?
     
-    let successImage = UIImage(systemName: "checkmark.circle")
-
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        downloadButton.isEnabled = false
 
         let attributedString = NSMutableAttributedString(string: "\(photographerName!) on Unsplash.com")
 
@@ -41,7 +39,7 @@ class FullScreenViewController: UIViewController {
         
         attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: attributedString.length))
         
-        ImageSearcher.fetchImages(with: imageLink ?? "", urlString2: photographerPicLink ?? "", NVActivityIndicatorView: loadingView) { [weak self] (image1, image2) in
+        ImageSearcher.fetchImages(with: imageLink ?? "", urlString2: photographerPicLink ?? "", NVActivityIndicatorView: loadingView, downloadButton) { [weak self] (image1, image2) in
             DispatchQueue.main.async {
                 self?.imageView.image = image1
                 self?.photographerProfilePicView.image = image2
@@ -77,10 +75,27 @@ class FullScreenViewController: UIViewController {
     }
     
     func downloadMessage() {
+
+        let successImage = UIImage(systemName: "checkmark.circle")?.withTintColor(.systemGreen)
+
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.bounds = CGRect(x: 0, y: 0, width: 30, height: 30)
+        imageAttachment.image = successImage
+
+        let fullString = NSMutableAttributedString(string: "")
+
+        fullString.append(NSAttributedString(attachment: imageAttachment))
+
+        let downloadText = NSMutableAttributedString(string: "\nDownload complete")
+        downloadText.addAttribute(NSAttributedString.Key.strokeWidth, value: -2, range: NSRange(location: 0, length: downloadText.length))
         
-        let downloadMessage = UIAlertController(title: "Download complete", message: "The image has been saved in your Photos app", preferredStyle: .alert)
-        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { _ in downloadMessage.dismiss(animated: true, completion: nil)} )
-        present(downloadMessage, animated: true)
+        fullString.append(downloadText)
+
+        let alert = UIAlertController(title: "", message: "The image has been saved to your Photos app", preferredStyle: .alert)
+        alert.setValue(fullString, forKey: "attributedTitle")
+
+        self.present(alert, animated: true)
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
     }
     
     func triggerDownloadCount() {

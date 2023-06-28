@@ -9,8 +9,6 @@ import UIKit
 
 class SearchViewController: UIViewController {
     
-  
-    
     @IBOutlet weak var searchBackground: UIView!
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
