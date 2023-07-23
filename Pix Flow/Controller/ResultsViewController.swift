@@ -7,6 +7,8 @@
 
 import UIKit
 
+var apiKey: String?
+
 class ResultsViewController: UIViewController {
 
     var topic: String?
@@ -26,11 +28,9 @@ class ResultsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         prevPageButton.isEnabled = false
         collectionView.backgroundColor = .systemBackground
-        let layout = UICollectionViewFlowLayout()
-        collectionView.collectionViewLayout = layout
+        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -47,11 +47,7 @@ class ResultsViewController: UIViewController {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
-            if currentPageNumber == 1 {
-                prevPageButton.isEnabled = false
-            }
-        } else {
-            prevPageButton.isEnabled = false
+            prevPageButton.isEnabled = currentPageNumber == 1 ? false : true
         }
     }
     
