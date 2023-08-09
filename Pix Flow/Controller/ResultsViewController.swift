@@ -6,81 +6,96 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 var apiKey: String?
 
 class ResultsViewController: UIViewController {
 
-    var topic: String?
-    var fullImageLink: String?
-    var photographerPicLink: String?
-    var photographerName: String?
-    var photographerPageLink: String?
-    var downloadLocation: String?
-    var currentPageNumber = 1
-    var totalPageNumber = 0
-    
+    @IBOutlet weak var loadingAnimation: NVActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var nextPageButton: UIButton!
     @IBOutlet weak var prevPageButton: UIButton!
     @IBOutlet weak var pageCountLabel: UILabel!
 
+    var searcher = ImageSearcher()
+    var topic: String?
+    
+    var fullImgLink = ""
+    var photographerName = ""
+    var photographerPicLink = ""
+    var photographerPageLink = ""
+    var downloadLocation = ""
+    
+    var currentPageNumber = 1 {
+        didSet {
+            pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber!)"
+            collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            searcher.getImages(topic!, currentPageNumber, loadingView: loadingAnimation)
+        }
+    }
+    var totalPageNumber: Int? {
+        didSet {
+            DispatchQueue.main.async { [self] in
+                pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber ?? 0)"
+            
+            }
+        }
+    }
+    var searchResults = [Result]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = topic!
         prevPageButton.isEnabled = false
         collectionView.backgroundColor = .systemBackground
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
+        searcher.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
+        searcher.getImages(topic!, currentPageNumber, loadingView: loadingAnimation)
     }
     
     @IBAction func prevPagePressed(_ sender: UIButton) {
         
-        nextPageButton.isEnabled = true
-        
         if currentPageNumber > 1 {
             currentPageNumber -= 1
-            pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber)"
-            collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-            prevPageButton.isEnabled = currentPageNumber == 1 ? false : true
+            nextPageButton.isEnabled = true
         }
+        prevPageButton.isEnabled = currentPageNumber == 1 ? false : true
     }
     
     @IBAction func nextPagePressed(_ sender: UIButton) {
         
-        if currentPageNumber < totalPageNumber {
-            currentPageNumber += 1
-            prevPageButton.isEnabled = true
-            pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber)"
-            collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-            if currentPageNumber == totalPageNumber {
-                nextPageButton.isEnabled = false
-            }
-        }
+        prevPageButton.isEnabled = true
+        currentPageNumber += 1
+        nextPageButton.isEnabled = currentPageNumber == totalPageNumber ? false : true
     }
 }
 
+//MARK: - ImageSearcherDelegate
 
-//MARK: - MyCollectionViewCellDelegate
-
-extension ResultsViewController: MyCollectionViewCellDelegate {
-
-    func showMessage() {
+extension ResultsViewController: ImageSearcherDelegate {
+    
+    func populateArray(modelArray: [Result]) {
+        
         DispatchQueue.main.async {
+            self.loadingAnimation.stopAnimating()
+            self.searchResults = modelArray
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func noPhotosFound() {
+        DispatchQueue.main.async {
+            self.loadingAnimation.stopAnimating()
             self.nextPageButton.isHidden = true
             self.prevPageButton.isHidden = true
             self.pageCountLabel.isHidden = true
             
             let label = UILabel()
-            label.text = "No photos found \nTry a different search."
+            label.text = "No photos found \nPlease try a different search."
             label.numberOfLines = 2
             label.font = UIFont.systemFont(ofSize: 20)
             label.textColor = UIColor(named: "Label Color")
@@ -94,15 +109,15 @@ extension ResultsViewController: MyCollectionViewCellDelegate {
                                  width: labelWidth,
                                  height: labelHeight)
             self.view.addSubview(label)
-            
         }
     }
 
     func updateTotalPageNumber(totalPages: Int) {
         totalPageNumber = totalPages
-        DispatchQueue.main.async { [self] in
-            pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber)"
-        }
+    }
+    
+    func didFailWithError(error: Error) {
+        print(error)
     }
 }
 
@@ -111,22 +126,21 @@ extension ResultsViewController: MyCollectionViewCellDelegate {
 
 extension ResultsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if let selectedCell = collectionView.cellForItem(at: indexPath) as? MyCollectionViewCell {
-            fullImageLink = selectedCell.fullImageLink
-            photographerName = selectedCell.photographerName
-            photographerPicLink = selectedCell.photographerProfilePicLink
-            photographerPageLink = selectedCell.photographerPageLink
-            downloadLocation = selectedCell.downloadLocation
-        }
+            
+        fullImgLink = searchResults[indexPath.item].urls.full
+        photographerName = searchResults[indexPath.item].user.name
+        photographerPicLink = searchResults[indexPath.item].user.profile_image.medium
+        photographerPageLink = searchResults[indexPath.item].user.links.html
+        downloadLocation = searchResults[indexPath.item].links.download_location
+            
         performSegue(withIdentifier: "goToFullScreen", sender: self)
     }
-    
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToFullScreen" {
             let destinationVC = segue.destination as? FullScreenViewController
-            destinationVC?.imageLink = fullImageLink
+            
+            destinationVC?.fullImgLink = fullImgLink
             destinationVC?.photographerName = photographerName
             destinationVC?.photographerPicLink = photographerPicLink
             destinationVC?.photographerPageLink = photographerPageLink
@@ -138,16 +152,19 @@ extension ResultsViewController: UICollectionViewDelegate {
 extension ResultsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ImageSearcher.imagesPerPage
+
+        return searchResults.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCollectionViewCell.identifier, for: indexPath) as! MyCollectionViewCell
-        cell.configure(with: topic!, currentPageNumber, indexPath.row)
-        cell.delegate = self
+        cell.setImage(with: searchResults[indexPath.item].urls.small)
+        
         return cell
     }
 }
+
 
 extension ResultsViewController: UICollectionViewDelegateFlowLayout {
     
