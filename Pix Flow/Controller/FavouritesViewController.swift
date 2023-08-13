@@ -106,10 +106,10 @@ extension FavouritesViewController: UICollectionViewDataSource {
         let selectedImage = favourites[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCollectionViewCell.identifier, for: indexPath) as! MyCollectionViewCell
         cell.setImage(with: favourites[indexPath.item].smallImageLink!)
-        cell.imageView.layer.borderColor = selectedImage.isTapped == true ? UIColor(named: "Custom Pink")?.cgColor : CGColor(red: 1, green: 0.2, blue: 0.6, alpha: 0)
-        cell.imageView.layer.borderWidth = selectedImage.isTapped == true ? 4 : 0
         cell.downloadButton.isHidden = selectedImage.isTapped == false ? true : false
         cell.deleteButton.isHidden = selectedImage.isTapped == false ? true : false
+        cell.imageView.alpha = selectedImage.isTapped == false ? 1 : 0.6
+        
         cell.delegate = self
         return cell
     }
@@ -136,8 +136,9 @@ extension FavouritesViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: - MyCollectionViewCellDelegate
+
 extension FavouritesViewController: MyCollectionViewCellDelegate {
-    
     
     func downloadImage() {
         
@@ -153,38 +154,48 @@ extension FavouritesViewController: MyCollectionViewCellDelegate {
         } else {
             vibration.notificationOccurred(.success)
             notificationMessage(successImage!, downloadNsText, downloadMessage)
-            triggerDownloadCount()
+            ImageSearcher.triggerDownloadCount(selectedDownloadLocation)
         }
     }
     
     func notificationMessage(_ image: UIImage, _ nsText: NSMutableAttributedString, _ alertMessage: String) {
-
+        
         let imageAttachment = NSTextAttachment()
         imageAttachment.bounds = CGRect(x: 0, y: 0, width: 30, height: 30)
         imageAttachment.image = image
-
+        
         let fullString = NSMutableAttributedString(string: "")
         fullString.append(NSAttributedString(attachment: imageAttachment))
-
+        
         let nsText = nsText
         nsText.addAttribute(NSAttributedString.Key.strokeWidth, value: -2, range: NSRange(location: 0, length: nsText.length))
-
+        
         fullString.append(nsText)
-
+        
         let alert = UIAlertController(title: "", message: alertMessage, preferredStyle: .alert)
         alert.setValue(fullString, forKey: "attributedTitle")
-
+        
         self.present(alert, animated: true)
-        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
+        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
     }
-
-    func triggerDownloadCount() {
-        let downloadLocation = URL(string: "\(String(describing: selectedDownloadLocation))&client_id=\(ImageSearcher.apiKey)")
-        URLSession.shared.dataTask(with: downloadLocation!).resume()
+    
+    func alertMessage() {
+        
+        let alert = UIAlertController(title: "Attention", message: "Are you sure you want to delete the image?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { _ in
+            self.deleteImage()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alert, animated: true)
     }
     
     func deleteFromFavourites() {
-
+        
+        alertMessage()
+    }
+    
+    func deleteImage() {
+        
         context.delete(selectedItem!)
         favourites.remove(at: selectedItemPosition!)
         saveToCoreData()

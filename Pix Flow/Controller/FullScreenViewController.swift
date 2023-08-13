@@ -110,7 +110,7 @@ class FullScreenViewController: UIViewController {
             notificationMessage(successImage!, downloadNsText, downloadMessage)
             downloadButton.title = "Downloaded"
             downloadButton.isEnabled = false
-            triggerDownloadCount()
+            ImageSearcher.triggerDownloadCount(downloadLocation)
         }
     }
 
@@ -132,12 +132,7 @@ class FullScreenViewController: UIViewController {
         alert.setValue(fullString, forKey: "attributedTitle")
 
         self.present(alert, animated: true)
-        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
-    }
-
-    func triggerDownloadCount() {
-        let downloadLocation = URL(string: "\(String(describing: downloadLocation))&client_id=\(ImageSearcher.apiKey)")
-        URLSession.shared.dataTask(with: downloadLocation!).resume()
+        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
     }
 }
 

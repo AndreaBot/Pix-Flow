@@ -148,5 +148,10 @@ struct ImageSearcher {
             completion(nil)
         }
     }
+    
+    static func triggerDownloadCount(_ downloadLocation: String) {
+        let downloadLocation = URL(string: "\(String(describing: downloadLocation))&client_id=\(apiKey)")
+        URLSession.shared.dataTask(with: downloadLocation!).resume()
+    }
 }
 

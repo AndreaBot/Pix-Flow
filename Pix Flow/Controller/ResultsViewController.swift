@@ -39,7 +39,6 @@ class ResultsViewController: UIViewController {
         didSet {
             DispatchQueue.main.async { [self] in
                 pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber ?? 0)"
-                
             }
         }
     }

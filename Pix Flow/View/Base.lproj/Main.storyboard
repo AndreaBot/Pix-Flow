@@ -242,7 +242,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="Prev page"/>
+                                                <state key="normal" title="Prev page">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="prevPagePressed:" destination="HaN-mb-Bkd" eventType="touchUpInside" id="PJ6-ol-NRv"/>
                                                 </connections>
@@ -253,7 +255,6 @@
                                                     <constraint firstAttribute="height" constant="35" id="aBn-7o-O3B"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <color key="textColor" name="AccentColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdP-Tg-CPC" userLabel="Next Page Button">
@@ -264,7 +265,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="Next page"/>
+                                                <state key="normal" title="Next page">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="nextPagePressed:" destination="HaN-mb-Bkd" eventType="touchUpInside" id="hSs-hb-Drf"/>
                                                 </connections>
@@ -277,15 +280,16 @@
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0LF-hH-kcl" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
                                 <rect key="frame" x="182" y="423" width="50" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Lfa-lw-0Su"/>
                                     <constraint firstAttribute="height" constant="50" id="NOX-MK-ku7"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Sok-oc-rRe"/>
                                     <constraint firstAttribute="width" constant="50" id="XfX-kd-9G1"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                        <color key="value" name="AccentColor"/>
+                                        <color key="value" name="Custom Pink"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballTrianglePath"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="padding">
@@ -365,7 +369,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FRL-S6-QjH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2332" y="628"/>
+            <point key="canvasLocation" x="2330.434782608696" y="627.45535714285711"/>
         </scene>
         <!--Full Screen View Controller-->
         <scene sceneID="tMT-9A-iIz">
@@ -394,7 +398,9 @@
                                                 <rect key="frame" x="40" y="0.5" width="354" height="34"/>
                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="Photographer Name"/>
+                                                <state key="normal" title="Photographer Name">
+                                                    <color key="titleColor" systemColor="labelColor"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="photographerNameButtonPressed:" destination="7v4-Zr-4Nc" eventType="touchUpInside" id="9X1-ch-V1a"/>
                                                 </connections>
@@ -406,7 +412,7 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C0N-7d-mCk" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C0N-7d-mCk" userLabel="Loading Animation" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
                                 <rect key="frame" x="182" y="423" width="50" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -415,7 +421,7 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                        <color key="value" name="AccentColor"/>
+                                        <color key="value" name="Custom Pink"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballTrianglePath"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="padding">
@@ -438,12 +444,13 @@
                     <navigationItem key="navigationItem" id="NEZ-1V-ciP">
                         <rightBarButtonItems>
                             <barButtonItem title="Download" id="Rhb-4k-1B9">
-                                <color key="tintColor" systemColor="tintColor"/>
+                                <color key="tintColor" systemColor="labelColor"/>
                                 <connections>
                                     <action selector="downloadImage:" destination="7v4-Zr-4Nc" id="LMZ-TU-2jP"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Add to favourites" id="6D6-o6-D4X">
+                                <color key="tintColor" systemColor="labelColor"/>
                                 <connections>
                                     <action selector="addToFavouritesPressed:" destination="7v4-Zr-4Nc" id="fhi-Q3-XF4"/>
                                 </connections>
@@ -516,14 +523,14 @@
         <image name="Space" width="884" height="633"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Custom Pink">
+            <color red="0.89999997615814209" green="0.25" blue="0.80000001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
