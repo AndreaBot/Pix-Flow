@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 import NVActivityIndicatorView
 
 
@@ -15,20 +16,32 @@ class FullScreenViewController: UIViewController {
     @IBOutlet weak var photogtapherNameButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var downloadButton: UIBarButtonItem!
+    @IBOutlet weak var addFavouriteButton: UIBarButtonItem!
     @IBOutlet weak var loadingView: NVActivityIndicatorView!
 
     let vibration = UINotificationFeedbackGenerator()
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    var smallImgLink = ""
     var fullImgLink = ""
     var photographerName = ""
     var photographerPicLink = ""
     var photographerPageLink = ""
     var downloadLocation = ""
 
+    var favourites = [ImageEntity]()
+    
+    let successImage = UIImage(systemName: "checkmark.circle")?.withTintColor(.systemGreen)
+    let favouriteImage = UIImage(systemName: "heart.circle")?.withTintColor(UIColor(named: "Custom Pink")!)
+    let downloadNsText = NSMutableAttributedString(string: "\nDownload complete")
+    let favouriteNsText = NSMutableAttributedString(string: "\nAdded to Favourites")
+    let downloadMessage = "The image has been saved to your Photos app"
+    let favouriteMessage = "The image has been added to your favourites"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         downloadButton.isEnabled = false
+        addFavouriteButton.isEnabled = false
 
         let attributedString = NSMutableAttributedString(string: "\(String(describing: photographerName)) on Unsplash.com")
 
@@ -38,7 +51,7 @@ class FullScreenViewController: UIViewController {
 
         attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: attributedString.length))
 
-        ImageSearcher.setImages(with: fullImgLink, photographerPicLink ,loadingView, downloadButton) { [weak self] (image1, image2) in
+        ImageSearcher.setImages(with: fullImgLink, photographerPicLink ,loadingView, downloadButton, addFavouriteButton) { [weak self] (image1, image2) in
             DispatchQueue.main.async {
                 self?.imageView.image = image1
                 self?.photographerProfilePicView.image = image2
@@ -54,7 +67,35 @@ class FullScreenViewController: UIViewController {
             UIApplication.shared.open(url)
         }
     }
-
+    
+    @IBAction func addToFavouritesPressed(_ sender: UIBarButtonItem) {
+        
+        let newEntity = ImageEntity(context: self.context)
+        newEntity.smallImageLink = smallImgLink
+        newEntity.fullImageLink = fullImgLink
+        newEntity.downloadLocation = downloadLocation
+        newEntity.isTapped = false
+        newEntity.date = Date()
+        
+        self.favourites.append(newEntity)
+        addFavouriteButton.isEnabled = false
+        addFavouriteButton.title = "Added"
+        self.saveToCoreData()
+        vibration.notificationOccurred(.success)
+        notificationMessage(favouriteImage!, favouriteNsText, favouriteMessage)
+        
+    }
+    
+    func saveToCoreData() {
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error saving \(error)")
+        }
+    }
+    
+                      
     @IBAction func downloadImage(_ sender: UIBarButtonItem) {
 
         UIImageWriteToSavedPhotosAlbum(imageView.image!, self, #selector(saveImage), nil)
@@ -66,31 +107,28 @@ class FullScreenViewController: UIViewController {
             return
         } else {
             vibration.notificationOccurred(.success)
-            downloadMessage()
-            downloadButton.title = "Saved"
+            notificationMessage(successImage!, downloadNsText, downloadMessage)
+            downloadButton.title = "Downloaded"
             downloadButton.isEnabled = false
             triggerDownloadCount()
         }
     }
 
-    func downloadMessage() {
-
-        let successImage = UIImage(systemName: "checkmark.circle")?.withTintColor(.systemGreen)
+    func notificationMessage(_ image: UIImage, _ nsText: NSMutableAttributedString, _ alertMessage: String) {
 
         let imageAttachment = NSTextAttachment()
         imageAttachment.bounds = CGRect(x: 0, y: 0, width: 30, height: 30)
-        imageAttachment.image = successImage
+        imageAttachment.image = image
 
         let fullString = NSMutableAttributedString(string: "")
-
         fullString.append(NSAttributedString(attachment: imageAttachment))
 
-        let downloadText = NSMutableAttributedString(string: "\nDownload complete")
-        downloadText.addAttribute(NSAttributedString.Key.strokeWidth, value: -2, range: NSRange(location: 0, length: downloadText.length))
+        let nsText = nsText
+        nsText.addAttribute(NSAttributedString.Key.strokeWidth, value: -2, range: NSRange(location: 0, length: nsText.length))
 
-        fullString.append(downloadText)
+        fullString.append(nsText)
 
-        let alert = UIAlertController(title: "", message: "The image has been saved to your Photos app", preferredStyle: .alert)
+        let alert = UIAlertController(title: "", message: alertMessage, preferredStyle: .alert)
         alert.setValue(fullString, forKey: "attributedTitle")
 
         self.present(alert, animated: true)

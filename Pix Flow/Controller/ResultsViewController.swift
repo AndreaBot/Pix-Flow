@@ -11,16 +11,17 @@ import NVActivityIndicatorView
 var apiKey: String?
 
 class ResultsViewController: UIViewController {
-
+    
     @IBOutlet weak var loadingAnimation: NVActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var nextPageButton: UIButton!
     @IBOutlet weak var prevPageButton: UIButton!
     @IBOutlet weak var pageCountLabel: UILabel!
-
+    
     var searcher = ImageSearcher()
     var topic: String?
     
+    var smallImgLink = ""
     var fullImgLink = ""
     var photographerName = ""
     var photographerPicLink = ""
@@ -38,7 +39,7 @@ class ResultsViewController: UIViewController {
         didSet {
             DispatchQueue.main.async { [self] in
                 pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber ?? 0)"
-            
+                
             }
         }
     }
@@ -47,6 +48,7 @@ class ResultsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = topic!
+        
         prevPageButton.isEnabled = false
         collectionView.backgroundColor = .systemBackground
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
@@ -111,7 +113,7 @@ extension ResultsViewController: ImageSearcherDelegate {
             self.view.addSubview(label)
         }
     }
-
+    
     func updateTotalPageNumber(totalPages: Int) {
         totalPageNumber = totalPages
     }
@@ -126,20 +128,22 @@ extension ResultsViewController: ImageSearcherDelegate {
 
 extension ResultsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            
+        
+        smallImgLink = searchResults[indexPath.item].urls.small
         fullImgLink = searchResults[indexPath.item].urls.full
         photographerName = searchResults[indexPath.item].user.name
         photographerPicLink = searchResults[indexPath.item].user.profile_image.medium
         photographerPageLink = searchResults[indexPath.item].user.links.html
         downloadLocation = searchResults[indexPath.item].links.download_location
-            
+        
         performSegue(withIdentifier: "goToFullScreen", sender: self)
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToFullScreen" {
             let destinationVC = segue.destination as? FullScreenViewController
             
+            destinationVC?.smallImgLink = smallImgLink
             destinationVC?.fullImgLink = fullImgLink
             destinationVC?.photographerName = photographerName
             destinationVC?.photographerPicLink = photographerPicLink
@@ -152,7 +156,7 @@ extension ResultsViewController: UICollectionViewDelegate {
 extension ResultsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
+        
         return searchResults.count
     }
     
@@ -160,6 +164,8 @@ extension ResultsViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCollectionViewCell.identifier, for: indexPath) as! MyCollectionViewCell
         cell.setImage(with: searchResults[indexPath.item].urls.small)
+        cell.downloadButton.isHidden = true
+        cell.deleteButton.isHidden = true
         
         return cell
     }

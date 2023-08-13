@@ -15,7 +15,6 @@ protocol ImageSearcherDelegate {
     func didFailWithError(error: Error)
 }
 
-
 struct ImageSearcher {
     
     var delegate: ImageSearcherDelegate?
@@ -81,7 +80,7 @@ struct ImageSearcher {
         }
     }
     
-    static func setImages(with urlString1: String, _ urlString2: String, _ NVActivityIndicatorView: NVActivityIndicatorView, _ downloadButton: UIBarButtonItem, _ completion: @escaping (UIImage?, UIImage?) -> Void) {
+    static func setImages(with urlString1: String, _ urlString2: String, _ NVActivityIndicatorView: NVActivityIndicatorView, _ downloadButton: UIBarButtonItem, _ favouriteButton: UIBarButtonItem, _ completion: @escaping (UIImage?, UIImage?) -> Void) {
         
         let linkArray = [urlString1, urlString2]
         let group = DispatchGroup()
@@ -124,8 +123,30 @@ struct ImageSearcher {
             NVActivityIndicatorView.stopAnimating()
             completion(image1, image2)
             downloadButton.isEnabled = true
+            favouriteButton.isEnabled = true
+        }
+    }
+    
+    static func downloadImage(with urlString: String, completion: @escaping (UIImage?) -> Void) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    print(error)
+                    completion(nil)
+                    return
+                }
+                if let safeData = data {
+                    let image = UIImage(data: safeData)
+                    completion(image)
+                } else {
+                    completion(nil)
+                }
+            }
+            task.resume()
+        } else {
+            completion(nil)
         }
     }
 }
-
 

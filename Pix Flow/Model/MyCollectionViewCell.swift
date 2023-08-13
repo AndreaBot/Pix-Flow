@@ -7,19 +7,36 @@
 
 import UIKit
 
-
+protocol MyCollectionViewCellDelegate {
+    func downloadImage()
+    func deleteFromFavourites()
+}
 class MyCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var downloadButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
+    
+    var delegate: MyCollectionViewCellDelegate?
     
     static let identifier = "MyCollectionViewCell"
-
+    var isTapped = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
-    public func setImage(with urlString: String) {
+    
+    @IBAction func downloadPressed(_ sender: UIButton) {
+        delegate?.downloadImage()
+    }
+    
+    @IBAction func deletePressed(_ sender: UIButton) {
+        delegate?.deleteFromFavourites()
+    }
+    
+    
+    func setImage(with urlString: String) {
         if let url = URL(string: urlString) {
             
             let session = URLSession(configuration: .default)

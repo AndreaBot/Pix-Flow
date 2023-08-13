@@ -13,7 +13,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet var categoryButtons: [UIButton]!
-
+    
     var topic: String?
     
     
@@ -35,7 +35,7 @@ class SearchViewController: UIViewController {
         )
         searchField.delegate = self
         let exitKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-           view.addGestureRecognizer(exitKeyboard)
+        view.addGestureRecognizer(exitKeyboard)
         
     }
     
@@ -81,14 +81,14 @@ class SearchViewController: UIViewController {
 //MARK: - UITxtField Delegate
 
 extension SearchViewController: UITextFieldDelegate {
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if searchField.text != "" {
             searchField.endEditing(true)
             topic = textField.text
             performSegue(withIdentifier: "goToResults", sender: self)
         }
-            return true
+        return true
     }
 }
 
