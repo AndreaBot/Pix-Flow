@@ -33,6 +33,20 @@ class ResultsViewController: UIViewController {
             pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber!)"
             collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             searcher.getImages(topic!, currentPageNumber, loadingView: loadingAnimation)
+            if currentPageNumber == 1 {
+                prevPageButton.isEnabled = false
+                prevPageButton.alpha = 0.3
+            } else {
+                prevPageButton.isEnabled = true
+                prevPageButton.alpha = 1
+            }
+            if currentPageNumber == totalPageNumber {
+                nextPageButton.isEnabled = false
+                nextPageButton.alpha = 0.3
+            } else {
+                nextPageButton.isEnabled = true
+                nextPageButton.alpha = 1
+            }
         }
     }
     var totalPageNumber: Int? {
@@ -49,6 +63,7 @@ class ResultsViewController: UIViewController {
         title = topic!
         
         prevPageButton.isEnabled = false
+        prevPageButton.alpha = 0.3
         collectionView.backgroundColor = .systemBackground
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
