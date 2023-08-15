@@ -117,7 +117,7 @@ extension ResultsViewController: ImageSearcherDelegate {
             label.textColor = UIColor(named: "Label Color")
             label.textAlignment = .center
             label.center = self.view.center
-            let labelWidth: CGFloat = 200
+            let labelWidth: CGFloat = self.view.frame.height * 0.7
             let labelHeight: CGFloat = 100
             
             label.frame = CGRect(x: self.view.center.x - (labelWidth / 2),

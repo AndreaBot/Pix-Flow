@@ -11,11 +11,17 @@ import CoreData
 class FavouritesViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var noFavsLabel: UILabel!
+    
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let vibration = UINotificationFeedbackGenerator()
     
-    var favourites = [ImageEntity]()
+    var favourites = [ImageEntity]() {
+        didSet {
+            noFavsLabel.alpha = favourites.count > 0 ? 0 : 1
+        }
+    }
     var selectedItem: ImageEntity?
     var selectedItemPosition: Int?
     var selectedDownloadLocation = ""
@@ -34,7 +40,6 @@ class FavouritesViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        loadFavourites()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,16 +47,7 @@ class FavouritesViewController: UIViewController {
         loadFavourites()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
-        for image in favourites {
-            image.isTapped = false
-        }
-        saveToCoreData()
-    }
-    
     func saveToCoreData() {
-        
         do {
             try context.save()
         } catch {
@@ -64,7 +60,12 @@ class FavouritesViewController: UIViewController {
             let request = ImageEntity.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
             favourites = try context.fetch(request)
-            collectionView.reloadData()
+            DispatchQueue.main.async {
+                for image in self.favourites {
+                    image.isTapped = false
+                }
+                self.collectionView.reloadData()
+            }
         } catch {
             print("Error fetching data from context \(error)")
         }
@@ -190,12 +191,10 @@ extension FavouritesViewController: MyCollectionViewCellDelegate {
     }
     
     func deleteFromFavourites() {
-        
         alertMessage()
     }
     
     func deleteImage() {
-        
         context.delete(selectedItem!)
         favourites.remove(at: selectedItemPosition!)
         saveToCoreData()
