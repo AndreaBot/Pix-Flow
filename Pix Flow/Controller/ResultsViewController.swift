@@ -108,16 +108,7 @@ extension ResultsViewController: ImageSearcherDelegate {
             self.nextPageButton.isHidden = true
             self.prevPageButton.isHidden = true
             self.pageCountLabel.isHidden = true
-            
-            let stack = createStackView()
-            self.view.addSubview(stack)
-            stack.addArrangedSubview(createIconImage())
-            stack.addArrangedSubview(createNoPhotosLabel())
-            
-            NSLayoutConstraint.activate([
-                stack.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-                stack.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
-            ])
+            noContentAvailableView(sfSymbol: "exclamationmark.magnifyingglass", text: "No photos found \nPlease try a different search.")
         }
     }
     
@@ -127,33 +118,6 @@ extension ResultsViewController: ImageSearcherDelegate {
     
     func didFailWithError(error: Error) {
         print(error)
-    }
-    
-    func createStackView() -> UIStackView {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.alignment = .center
-        stack.spacing = 20
-        stack.distribution = .fillProportionally
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
-    }
-    
-    func createIconImage() -> UIImageView {
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 40, weight: .bold, scale: .large)
-        let iconImage = UIImage(systemName: "exclamationmark.magnifyingglass")?.withTintColor(.gray).withConfiguration(largeConfig).withRenderingMode(.alwaysOriginal)
-        let imageView = UIImageView(image: iconImage)
-        return imageView
-    }
-    
-    func createNoPhotosLabel() -> UILabel {
-        let label = UILabel()
-        label.text = "No photos found \nPlease try a different search."
-        label.numberOfLines = 2
-        label.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
-        label.textColor = UIColor(named: "Label Color")
-        label.textAlignment = .center
-        return label
     }
 }
 
