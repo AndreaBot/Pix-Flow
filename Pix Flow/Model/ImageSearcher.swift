@@ -25,16 +25,13 @@ struct ImageSearcher {
     let baseUrl = "https://api.unsplash.com/search/photos/?orientation=portrait&order_by=popular"
     
     func getImages(_ query: String, _ pageNumber: Int, loadingView: NVActivityIndicatorView)  {
-        
         if let encodedText = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(pageNumber)&per_page=\(ImageSearcher.imagesPerPage)&client_id=\(ImageSearcher.apiKey)"
-            
             performRequest(with: searchUrl, loadingView)
         }
     }
     
     func performRequest(with urlString: String, _ loadingView: NVActivityIndicatorView) {
-        
         if let url = URL(string: urlString) {
             DispatchQueue.main.async {
                 loadingView.startAnimating()
@@ -44,8 +41,7 @@ struct ImageSearcher {
                 if let error = error {
                     delegate?.didFailWithError(error: error)
                     return
-                }
-                if let safeData = data {
+                } else if let safeData = data {
                     if let allResults = parseJSON(safeData, loadingView) {
                         delegate?.populateArray(modelArray: allResults)
                     }
@@ -60,7 +56,6 @@ struct ImageSearcher {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(ImageData.self, from: imageData)
-            
             let totalPhotos = decodedData.total
             let totalPages = decodedData.total_pages
             delegate?.updateTotalPageNumber(totalPages: totalPages)
@@ -68,11 +63,8 @@ struct ImageSearcher {
             if totalPhotos < ImageSearcher.imagesPerPage {
                 delegate?.noPhotosFound()
                 return nil
-                
             } else {
-                
-                let resultsArray = decodedData.results
-                return resultsArray
+                return  decodedData.results
             }
         } catch {
             delegate?.didFailWithError(error: error)
@@ -111,7 +103,6 @@ struct ImageSearcher {
                     default:
                         break
                     }
-                    
                     DispatchQueue.main.async {
                         completion(image1, image2)
                     }
@@ -135,8 +126,7 @@ struct ImageSearcher {
                     print(error)
                     completion(nil)
                     return
-                }
-                if let safeData = data {
+                } else if let safeData = data {
                     let image = UIImage(data: safeData)
                     completion(image)
                 } else {

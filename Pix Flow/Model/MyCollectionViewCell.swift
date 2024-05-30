@@ -45,8 +45,7 @@ class MyCollectionViewCell: UICollectionViewCell {
                 if error != nil {
                     print(error as Any)
                     return
-                }
-                if let safeData = data {
+                } else if let safeData = data {
                     let imageData = safeData
                     let image = UIImage(data: imageData)!
                     DispatchQueue.main.async {

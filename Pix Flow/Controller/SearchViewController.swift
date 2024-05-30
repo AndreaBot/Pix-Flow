@@ -49,12 +49,7 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func searchPressed(_ sender: UIButton) {
-        
-        if searchField.text != "" {
-            topic = searchField.text
-            searchField.endEditing(true)
-            performSegue(withIdentifier: "goToResults", sender: self)
-        }
+        setupSearch()
     }
     
     @IBAction func searchCategory(_ sender: UIButton) {
@@ -69,10 +64,19 @@ class SearchViewController: UIViewController {
         
     }
     
+    func setupSearch() {
+        if searchField.text != "" {
+            topic = searchField.text
+            searchField.endEditing(true)
+            performSegue(withIdentifier: "goToResults", sender: self)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToResults" {
-            let destinationVC = segue.destination as? ResultsViewController
-            destinationVC?.topic = topic
+            if let destinationVC = segue.destination as? ResultsViewController {
+                destinationVC.topic = topic
+            }
         }
     }
 }
@@ -83,11 +87,7 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if searchField.text != "" {
-            searchField.endEditing(true)
-            topic = textField.text
-            performSegue(withIdentifier: "goToResults", sender: self)
-        }
+        setupSearch()
         return true
     }
 }
