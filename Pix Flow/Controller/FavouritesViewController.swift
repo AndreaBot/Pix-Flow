@@ -6,26 +6,18 @@
 //
 
 import UIKit
-import CoreData
 
-class FavouritesViewController: UIViewController {
+class FavouritesViewController: UIViewController{
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var noFavsLabel: UILabel!
     
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var coreDataManager = CoreDataManager()
+
     let vibration = UINotificationFeedbackGenerator()
-    
-    var favourites = [ImageEntity]() {
-        didSet {
-            noFavsLabel.alpha = favourites.isEmpty ? 1 : 0
-        }
-    }
+
     var selectedItem: ImageEntity?
     var selectedItemPosition: Int?
-    var selectedDownloadLocation = ""
-    var imgToDownloadLink = ""
     
     let successImage = UIImage(systemName: "checkmark.circle")?.withTintColor(.systemGreen)
     let downloadNsText = NSMutableAttributedString(string: "\nDownload complete")
@@ -33,7 +25,7 @@ class FavouritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        coreDataManager.delegate = self
         collectionView.backgroundColor = .systemBackground
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
@@ -44,69 +36,41 @@ class FavouritesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        loadFavourites()
-    }
-    
-    func saveToCoreData() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving \(error)")
-        }
-    }
-    
-    func loadFavourites() {
-        do {
-            let request = ImageEntity.fetchRequest()
-            request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-            favourites = try context.fetch(request)
-            DispatchQueue.main.async {
-                for image in self.favourites {
-                    image.isTapped = false
-                }
-                self.collectionView.reloadData()
-            }
-        } catch {
-            print("Error fetching data from context \(error)")
-        }
+        coreDataManager.loadFavourites()
     }
 }
+
 
 //MARK: - UICollectionViewDelegate, DataSource, DelegateFlowLayout
 
 extension FavouritesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        for (index, image) in favourites.enumerated() {
+        for (index, image) in coreDataManager.favourites.enumerated() {
             if image.isTapped {
                 image.isTapped = false
                 let indexPathToUpdate = IndexPath(item: index, section: 0)
                 collectionView.reloadItems(at: [indexPathToUpdate])
             }
         }
-        selectedItem = favourites[indexPath.item]
+        selectedItem = coreDataManager.favourites[indexPath.item]
         selectedItemPosition = indexPath.item
-        selectedDownloadLocation = selectedItem!.downloadLocation!
-        imgToDownloadLink = (selectedItem?.fullImageLink)!
         
-        favourites[indexPath.item].isTapped.toggle()
+        coreDataManager.favourites[indexPath.item].isTapped.toggle()
         collectionView.reloadItems(at: [indexPath])
     }
 }
 
-
 extension FavouritesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return favourites.count
+        return coreDataManager.favourites.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let selectedImage = favourites[indexPath.item]
+        let selectedImage = coreDataManager.favourites[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyCollectionViewCell.identifier, for: indexPath) as! MyCollectionViewCell
-        cell.setImage(with: favourites[indexPath.item].smallImageLink!)
+        cell.setImage(with: coreDataManager.favourites[indexPath.item].smallImageLink!)
         cell.downloadButton.isHidden = selectedImage.isTapped == false ? true : false
         cell.deleteButton.isHidden = selectedImage.isTapped == false ? true : false
         cell.imageView.alpha = selectedImage.isTapped == false ? 1 : 0.6
@@ -115,7 +79,6 @@ extension FavouritesViewController: UICollectionViewDataSource {
         return cell
     }
 }
-
 
 extension FavouritesViewController: UICollectionViewDelegateFlowLayout {
     
@@ -137,14 +100,16 @@ extension FavouritesViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+
 //MARK: - MyCollectionViewCellDelegate
 
 extension FavouritesViewController: MyCollectionViewCellDelegate {
     
     func downloadImage() {
-        
-        ImageSearcher.downloadImage(with: imgToDownloadLink) { image in
-            UIImageWriteToSavedPhotosAlbum(image!, self, #selector(self.saveImage), nil)
+        if let selectedItem = selectedItem, let fullImageLink = selectedItem.fullImageLink {
+            ImageSearcher.downloadImage(with: fullImageLink) { image in
+                UIImageWriteToSavedPhotosAlbum(image!, self, #selector(self.saveImage), nil)
+            }
         }
     }
     
@@ -153,14 +118,15 @@ extension FavouritesViewController: MyCollectionViewCellDelegate {
             print(error)
             return
         } else {
-            vibration.notificationOccurred(.success)
-            notificationMessage(successImage!, downloadNsText, downloadMessage)
-            ImageSearcher.triggerDownloadCount(selectedDownloadLocation)
+            if let selectedItem = selectedItem, let downloadLocation = selectedItem.downloadLocation {
+                ImageSearcher.triggerDownloadCount(downloadLocation)
+                vibration.notificationOccurred(.success)
+                notificationMessage(successImage!, downloadNsText, downloadMessage)
+            }
         }
     }
     
     func notificationMessage(_ image: UIImage, _ nsText: NSMutableAttributedString, _ alertMessage: String) {
-        
         let imageAttachment = NSTextAttachment()
         imageAttachment.bounds = CGRect(x: 0, y: 0, width: 30, height: 30)
         imageAttachment.image = image
@@ -181,10 +147,11 @@ extension FavouritesViewController: MyCollectionViewCellDelegate {
     }
     
     func alertMessage() {
-        
         let alert = UIAlertController(title: "Attention", message: "Are you sure you want to delete the image?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { _ in
-            self.deleteImage()
+        alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { [self] _ in
+            if let selectedItem = selectedItem, let selectedItemPosition = selectedItemPosition {
+                coreDataManager.deleteImage(selectedImage: selectedItem, selectedItemPosition: selectedItemPosition)
+            }
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(alert, animated: true)
@@ -193,12 +160,15 @@ extension FavouritesViewController: MyCollectionViewCellDelegate {
     func deleteFromFavourites() {
         alertMessage()
     }
-    
-    func deleteImage() {
-        context.delete(selectedItem!)
-        favourites.remove(at: selectedItemPosition!)
-        saveToCoreData()
-        collectionView.reloadData()
-    }
+}
+
+
+//MARK: - CoreDataManagerDelegate
+
+extension FavouritesViewController: CoreDataManagerDelegate {
+        func refreshScreen() {
+            self.collectionView.reloadData()
+            noFavsLabel.alpha = coreDataManager.noContentLabelAlpha
+        }
 }
 

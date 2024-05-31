@@ -20,7 +20,8 @@ class FullScreenViewController: UIViewController {
     @IBOutlet weak var loadingView: NVActivityIndicatorView!
 
     let vibration = UINotificationFeedbackGenerator()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    var coreDataManager = CoreDataManager()
     
     var smallImgLink = ""
     var fullImgLink = ""
@@ -42,8 +43,6 @@ class FullScreenViewController: UIViewController {
         }
     }
 
-    var favourites = [ImageEntity]()
-    
     let successImage = UIImage(systemName: "checkmark.circle")?.withTintColor(.systemGreen)
     let favouriteImage = UIImage(systemName: "heart.circle")?.withTintColor(UIColor(named: "Custom Pink")!)
     let downloadNsText = NSMutableAttributedString(string: "\nDownload complete")
@@ -83,32 +82,14 @@ class FullScreenViewController: UIViewController {
     }
     
     @IBAction func addToFavouritesPressed(_ sender: UIBarButtonItem) {
-        
-        let newEntity = ImageEntity(context: self.context)
-        newEntity.smallImageLink = smallImgLink
-        newEntity.fullImageLink = fullImgLink
-        newEntity.downloadLocation = downloadLocation
-        newEntity.isTapped = false
-        newEntity.date = Date()
-        
-        self.favourites.append(newEntity)
-        addFavouriteButton.isEnabled = false
-        addFavouriteButton.title = "Added"
-        self.saveToCoreData()
-        vibration.notificationOccurred(.success)
-        notificationMessage(favouriteImage!, favouriteNsText, favouriteMessage)
-        
-    }
-    
-    func saveToCoreData() {
-        
-        do {
-            try context.save()
-        } catch {
-            print("Error saving \(error)")
+        if let selectedImage = selectedImage {
+            coreDataManager.save(image: selectedImage)
+            addFavouriteButton.isEnabled = false
+            addFavouriteButton.title = "Added"
+            vibration.notificationOccurred(.success)
+            notificationMessage(favouriteImage!, favouriteNsText, favouriteMessage)
         }
     }
-    
                       
     @IBAction func downloadImage(_ sender: UIBarButtonItem) {
 
