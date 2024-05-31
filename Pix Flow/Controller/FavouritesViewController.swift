@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavouritesViewController: UIViewController{
+class FavouritesViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var noFavsLabel: UILabel!
@@ -28,6 +28,27 @@ class FavouritesViewController: UIViewController{
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        let hideOverlays = UITapGestureRecognizer(target: self, action: #selector(handleCollectionViewTap(_:)))
+        collectionView.addGestureRecognizer(hideOverlays)
+        
+    }
+    
+    @objc func handleCollectionViewTap(_ sender: UITapGestureRecognizer) {
+        let location = sender.location(in: collectionView)
+        if let indexPath = collectionView.indexPathForItem(at: location) {
+            collectionView(collectionView, didSelectItemAt: indexPath)
+        } else {
+            DispatchQueue.main.async {
+                if let selectedCell = self.coreDataManager.favourites.firstIndex(where: { imageEntity in
+                    imageEntity.isTapped == true
+                }) {
+                    self.coreDataManager.favourites[selectedCell].isTapped = false
+                    self.collectionView.reloadItems(at: [IndexPath(item: selectedCell, section: 0)])
+                    
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -140,4 +161,3 @@ extension FavouritesViewController: CoreDataManagerDelegate {
         noFavsLabel.alpha = coreDataManager.favourites.isEmpty ? 1 : 0
     }
 }
-
