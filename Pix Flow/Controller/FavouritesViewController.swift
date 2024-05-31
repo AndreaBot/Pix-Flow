@@ -19,7 +19,7 @@ class FavouritesViewController: UIViewController {
     
     var favourites = [ImageEntity]() {
         didSet {
-            noFavsLabel.alpha = favourites.count > 0 ? 0 : 1
+            noFavsLabel.alpha = favourites.isEmpty ? 1 : 0
         }
     }
     var selectedItem: ImageEntity?

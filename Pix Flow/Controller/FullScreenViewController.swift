@@ -28,6 +28,19 @@ class FullScreenViewController: UIViewController {
     var photographerPicLink = ""
     var photographerPageLink = ""
     var downloadLocation = ""
+    
+    var selectedImage: Result? {
+            didSet {
+                if let selectedImage = selectedImage {
+                smallImgLink = selectedImage.urls.small
+                fullImgLink = selectedImage.urls.full
+                photographerName = selectedImage.user.name
+                photographerPicLink = selectedImage.user.profile_image.medium
+                photographerPageLink = selectedImage.user.links.html
+                downloadLocation = selectedImage.links.download_location
+            }
+        }
+    }
 
     var favourites = [ImageEntity]()
     
@@ -37,6 +50,7 @@ class FullScreenViewController: UIViewController {
     let favouriteNsText = NSMutableAttributedString(string: "\nAdded to Favourites")
     let downloadMessage = "The image has been saved to your Photos app"
     let favouriteMessage = "The image has been added to your favourites"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

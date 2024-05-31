@@ -20,13 +20,7 @@ class ResultsViewController: UIViewController {
     
     var searcher = ImageSearcher()
     var topic: String?
-    
-    var smallImgLink = ""
-    var fullImgLink = ""
-    var photographerName = ""
-    var photographerPicLink = ""
-    var photographerPageLink = ""
-    var downloadLocation = ""
+    var selectedImage: Result?
     
     var currentPageNumber = 1 {
         didSet {
@@ -126,27 +120,15 @@ extension ResultsViewController: ImageSearcherDelegate {
 
 extension ResultsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        smallImgLink = searchResults[indexPath.item].urls.small
-        fullImgLink = searchResults[indexPath.item].urls.full
-        photographerName = searchResults[indexPath.item].user.name
-        photographerPicLink = searchResults[indexPath.item].user.profile_image.medium
-        photographerPageLink = searchResults[indexPath.item].user.links.html
-        downloadLocation = searchResults[indexPath.item].links.download_location
-        
+        selectedImage = searchResults[indexPath.item]
         performSegue(withIdentifier: "goToFullScreen", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToFullScreen" {
-            let destinationVC = segue.destination as? FullScreenViewController
-            
-            destinationVC?.smallImgLink = smallImgLink
-            destinationVC?.fullImgLink = fullImgLink
-            destinationVC?.photographerName = photographerName
-            destinationVC?.photographerPicLink = photographerPicLink
-            destinationVC?.photographerPageLink = photographerPageLink
-            destinationVC?.downloadLocation = downloadLocation
+            if let destinationVC = segue.destination as? FullScreenViewController {
+                destinationVC.selectedImage = selectedImage
+            }
         }
     }
 }
