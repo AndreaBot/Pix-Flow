@@ -168,7 +168,7 @@ extension FavouritesViewController: MyCollectionViewCellDelegate {
 extension FavouritesViewController: CoreDataManagerDelegate {
         func refreshScreen() {
             self.collectionView.reloadData()
-            noFavsLabel.alpha = coreDataManager.noContentLabelAlpha
+            noFavsLabel.alpha = coreDataManager.favourites.isEmpty ? 1 : 0
         }
 }
 

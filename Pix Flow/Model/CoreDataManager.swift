@@ -15,13 +15,10 @@ protocol CoreDataManagerDelegate {
 class CoreDataManager {
     
     var delegate: CoreDataManagerDelegate?
-    var noContentLabelAlpha: CGFloat = 0
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var favourites = [ImageEntity]()  {
-        didSet {
-            noContentLabelAlpha = favourites.isEmpty ? 1 : 0
-        }
-    }
+    
+    var favourites = [ImageEntity]()
     
     func createNewEntity(from result:Result) -> ImageEntity {
         let newEntity = ImageEntity(context: self.context)
