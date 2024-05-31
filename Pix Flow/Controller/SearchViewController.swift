@@ -53,7 +53,6 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func searchCategory(_ sender: UIButton) {
-        
         if sender.currentTitle == "B&W" {
             topic = "monochrome"
         } else {
@@ -61,7 +60,6 @@ class SearchViewController: UIViewController {
         }
         searchField.endEditing(true)
         performSegue(withIdentifier: "goToResults", sender: self)
-        
     }
     
     func setupSearch() {

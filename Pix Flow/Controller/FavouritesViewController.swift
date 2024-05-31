@@ -13,15 +13,11 @@ class FavouritesViewController: UIViewController{
     @IBOutlet weak var noFavsLabel: UILabel!
     
     var coreDataManager = CoreDataManager()
-
+    
     let vibration = UINotificationFeedbackGenerator()
-
+    
     var selectedItem: ImageEntity?
     var selectedItemPosition: Int?
-    
-    let successImage = UIImage(systemName: "checkmark.circle")?.withTintColor(.systemGreen)
-    let downloadNsText = NSMutableAttributedString(string: "\nDownload complete")
-    let downloadMessage = "The image has been saved to your Photos app"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,44 +117,17 @@ extension FavouritesViewController: MyCollectionViewCellDelegate {
             if let selectedItem = selectedItem, let downloadLocation = selectedItem.downloadLocation {
                 ImageSearcher.triggerDownloadCount(downloadLocation)
                 vibration.notificationOccurred(.success)
-                notificationMessage(successImage!, downloadNsText, downloadMessage)
+                Alerts.presentTimedAlert(vc: self, alert: Alerts.notificationMessage(Alerts.successImage!, Alerts.downloadNsText, Alerts.downloadMessage))
             }
         }
     }
     
-    func notificationMessage(_ image: UIImage, _ nsText: NSMutableAttributedString, _ alertMessage: String) {
-        let imageAttachment = NSTextAttachment()
-        imageAttachment.bounds = CGRect(x: 0, y: 0, width: 30, height: 30)
-        imageAttachment.image = image
-        
-        let fullString = NSMutableAttributedString(string: "")
-        fullString.append(NSAttributedString(attachment: imageAttachment))
-        
-        let nsText = nsText
-        nsText.addAttribute(NSAttributedString.Key.strokeWidth, value: -2, range: NSRange(location: 0, length: nsText.length))
-        
-        fullString.append(nsText)
-        
-        let alert = UIAlertController(title: "", message: alertMessage, preferredStyle: .alert)
-        alert.setValue(fullString, forKey: "attributedTitle")
-        
-        self.present(alert, animated: true)
-        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)})
-    }
-    
-    func alertMessage() {
-        let alert = UIAlertController(title: "Attention", message: "Are you sure you want to delete the image?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { [self] _ in
-            if let selectedItem = selectedItem, let selectedItemPosition = selectedItemPosition {
-                coreDataManager.deleteImage(selectedImage: selectedItem, selectedItemPosition: selectedItemPosition)
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(alert, animated: true)
-    }
-    
     func deleteFromFavourites() {
-        alertMessage()
+        if let selectedItem = selectedItem, let selectedItemPosition = selectedItemPosition {
+            present(Alerts.deletionConfirmation(for: selectedItem, position: selectedItemPosition, deleteAction: { [self] _, _ in
+                coreDataManager.deleteImage(selectedImage: selectedItem, selectedItemPosition: selectedItemPosition)
+            }), animated: true)
+        }
     }
 }
 
@@ -166,9 +135,9 @@ extension FavouritesViewController: MyCollectionViewCellDelegate {
 //MARK: - CoreDataManagerDelegate
 
 extension FavouritesViewController: CoreDataManagerDelegate {
-        func refreshScreen() {
-            self.collectionView.reloadData()
-            noFavsLabel.alpha = coreDataManager.favourites.isEmpty ? 1 : 0
-        }
+    func refreshScreen() {
+        self.collectionView.reloadData()
+        noFavsLabel.alpha = coreDataManager.favourites.isEmpty ? 1 : 0
+    }
 }
 
