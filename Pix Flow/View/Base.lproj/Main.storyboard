@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Search-->
+        <!--PixFlow-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="SearchViewController" customModule="Pix_Flow" customModuleProvider="target" sceneMemberID="viewController">
@@ -178,7 +178,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="Syc-zF-KF1"/>
-                    <navigationItem key="navigationItem" style="editor" id="xOX-H1-eAW"/>
+                    <navigationItem key="navigationItem" title="PixFlow" style="editor" id="xOX-H1-eAW"/>
                     <connections>
                         <outlet property="searchBackground" destination="XwB-YH-NDY" id="XeI-VI-ng4"/>
                         <outlet property="searchButton" destination="wkc-te-sHc" id="zM5-38-8sc"/>

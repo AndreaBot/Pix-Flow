@@ -41,7 +41,7 @@ class SearchViewController: UIViewController {
     
     @IBAction func searchCategory(_ sender: UIButton) {
         if sender.currentTitle == "B&W" {
-            topic = "monochrome"
+            topic = "Monochrome"
         } else {
             topic = sender.currentTitle
         }
@@ -50,7 +50,6 @@ class SearchViewController: UIViewController {
     }
     
     func setupUI() {
-        title = "PixFlow"
         for button in categoryButtons {
             button.layer.cornerRadius = 8
         }
