@@ -22,11 +22,11 @@ struct ImageSearcher {
     static let imagesPerPage = 20
     static let apiKey = "GKREyJQ1MCESHa8rBNmBC_70ZcKWVOsmeU1U--edAv4"
     
-    let baseUrl = "https://api.unsplash.com/search/photos/?orientation=portrait&order_by=popular"
+    let baseUrl = "https://api.unsplash.com/search/photos/?orientation=portrait"
     
-    func getImages(_ query: String, _ pageNumber: Int, loadingView: NVActivityIndicatorView)  {
+    func getImages(_ query: String, _ pageNumber: Int, loadingView: NVActivityIndicatorView, sortBy: String)  {
         if let encodedText = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(pageNumber)&per_page=\(ImageSearcher.imagesPerPage)&client_id=\(ImageSearcher.apiKey)"
+            let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(pageNumber)&per_page=\(ImageSearcher.imagesPerPage)&order_by=\(sortBy)&client_id=\(ImageSearcher.apiKey)"
             performRequest(with: searchUrl, loadingView)
         }
     }

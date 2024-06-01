@@ -8,9 +8,12 @@
 import UIKit
 import NVActivityIndicatorView
 
-var apiKey: String?
 
 class ResultsViewController: UIViewController {
+    
+    
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     
     @IBOutlet weak var loadingAnimation: NVActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -20,13 +23,19 @@ class ResultsViewController: UIViewController {
     
     var searcher = ImageSearcher()
     var topic: String?
-    var selectedImage: Result?
+    var sortBy = "popular" {
+        didSet {
+            setupToolbar()
+        }
+    }
     
+    var selectedImage: Result?
+
     var currentPageNumber = 1 {
         didSet {
             pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber!)"
             collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-            searcher.getImages(topic!, currentPageNumber, loadingView: loadingAnimation)
+            searcher.getImages(topic!, currentPageNumber, loadingView: loadingAnimation, sortBy: sortBy)
             if currentPageNumber == 1 {
                 prevPageButton.isEnabled = false
                 prevPageButton.alpha = 0.3
@@ -50,6 +59,7 @@ class ResultsViewController: UIViewController {
             }
         }
     }
+    
     var searchResults = [Result]()
     
     override func viewDidLoad() {
@@ -67,12 +77,43 @@ class ResultsViewController: UIViewController {
         
         if let topic = topic {
             title = topic
-            searcher.getImages(topic, currentPageNumber, loadingView: loadingAnimation)
+            searcher.getImages(topic, currentPageNumber, loadingView: loadingAnimation, sortBy: sortBy)
         }
         
         prevPageButton.isEnabled = false
         prevPageButton.alpha = 0.3
         collectionView.backgroundColor = .systemBackground
+        
+        setupToolbar()
+    }
+    
+    func setupToolbar() {
+        self.navigationItem.rightBarButtonItems = [createMenuButton()]
+    }
+    
+    func setupMenu() -> UIMenu {
+        let checkIcon = UIImage(systemName: "checkmark")
+        let sortByPopularity = UIAction(title: "Most popular", image: sortBy == "popular" ? checkIcon : nil) { _ in
+            self.sortBy = "popular"
+            self.currentPageNumber = 1
+        }
+        let sortByMostRecent = UIAction(title: "Newest first", image: sortBy == "latest" ? checkIcon : nil) { _ in
+            self.sortBy = "latest"
+            self.currentPageNumber = 1
+        }
+        let sortByOldest = UIAction(title: "Oldest first", image: sortBy == "oldest" ? checkIcon : nil) { _ in
+            self.sortBy = "oldest"
+            self.currentPageNumber = 1
+        }
+        return UIMenu(title: "Sort by:", options: .displayInline, children: [sortByPopularity, sortByMostRecent, sortByOldest])
+    }
+    
+    func createMenuButton() -> UIBarButtonItem {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
+        button.showsMenuAsPrimaryAction = true
+        button.menu = setupMenu()
+        return button.asBarButtonItem()
     }
     
     @IBAction func prevPagePressed(_ sender: UIButton) {
@@ -179,7 +220,3 @@ extension ResultsViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
-
-
-
-
