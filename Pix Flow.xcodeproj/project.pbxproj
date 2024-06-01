@@ -27,6 +27,7 @@
 		62BE4C542C0A5ACB005EEAF4 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BE4C532C0A5ACB005EEAF4 /* CoreDataManager.swift */; };
 		62BE4C562C0A6EA3005EEAF4 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BE4C552C0A6EA3005EEAF4 /* Alerts.swift */; };
 		62CB4A362C0B3BCB00859D86 /* Button Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CB4A352C0B3BCB00859D86 /* Button Extensions.swift */; };
+		62CB4A382C0B492D00859D86 /* SortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CB4A372C0B492D00859D86 /* SortType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		62BE4C532C0A5ACB005EEAF4 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		62BE4C552C0A6EA3005EEAF4 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		62CB4A352C0B3BCB00859D86 /* Button Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button Extensions.swift"; sourceTree = "<group>"; };
+		62CB4A372C0B492D00859D86 /* SortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortType.swift; sourceTree = "<group>"; };
 		C698BE1944EC70A5E3566532 /* Pods_Pix_Flow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pix_Flow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D89BC45A1ED27DB973C48187 /* Pods-Pix Flow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pix Flow.debug.xcconfig"; path = "Target Support Files/Pods-Pix Flow/Pods-Pix Flow.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +98,7 @@
 				62343B0E2A25360F009D9E6A /* View */,
 				6213D4802A2535C200CF0D74 /* Controller */,
 				62CB4A342C0B3BAA00859D86 /* Extensions */,
+				62CB4A372C0B492D00859D86 /* SortType.swift */,
 				6213D4732A252FCF00CF0D74 /* Assets.xcassets */,
 				6213D4752A252FCF00CF0D74 /* LaunchScreen.storyboard */,
 				6213D4782A252FCF00CF0D74 /* Info.plist */,
@@ -291,6 +294,7 @@
 				62BE4C562C0A6EA3005EEAF4 /* Alerts.swift in Sources */,
 				6213D47F2A2535BA00CF0D74 /* ImageSearcher.swift in Sources */,
 				62343B102A253D97009D9E6A /* Image Data.swift in Sources */,
+				62CB4A382C0B492D00859D86 /* SortType.swift in Sources */,
 				6213D46D2A252FCE00CF0D74 /* SceneDelegate.swift in Sources */,
 				62BE4C522C09280D005EEAF4 /* View Extensions.swift in Sources */,
 			);

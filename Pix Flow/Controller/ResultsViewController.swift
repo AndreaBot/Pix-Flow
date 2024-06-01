@@ -23,7 +23,7 @@ class ResultsViewController: UIViewController {
     
     var searcher = ImageSearcher()
     var topic: String?
-    var sortBy = "popular" {
+    var sortBy: SortType = .popular {
         didSet {
             setupToolbar()
         }
@@ -35,7 +35,7 @@ class ResultsViewController: UIViewController {
         didSet {
             pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber!)"
             collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-            searcher.getImages(topic!, currentPageNumber, loadingView: loadingAnimation, sortBy: sortBy)
+            searcher.getImages(topic!, currentPageNumber, loadingView: loadingAnimation, sortBy: sortBy.rawValue)
             if currentPageNumber == 1 {
                 prevPageButton.isEnabled = false
                 prevPageButton.alpha = 0.3
@@ -77,7 +77,7 @@ class ResultsViewController: UIViewController {
         
         if let topic = topic {
             title = topic
-            searcher.getImages(topic, currentPageNumber, loadingView: loadingAnimation, sortBy: sortBy)
+            searcher.getImages(topic, currentPageNumber, loadingView: loadingAnimation, sortBy: sortBy.rawValue)
         }
         
         prevPageButton.isEnabled = false
@@ -93,16 +93,16 @@ class ResultsViewController: UIViewController {
     
     func setupMenu() -> UIMenu {
         let checkIcon = UIImage(systemName: "checkmark")
-        let sortByPopularity = UIAction(title: "Most popular", image: sortBy == "popular" ? checkIcon : nil) { _ in
-            self.sortBy = "popular"
+        let sortByPopularity = UIAction(title: "Most popular", image: sortBy == .popular ? checkIcon : nil) { _ in
+            self.sortBy = .popular
             self.currentPageNumber = 1
         }
-        let sortByMostRecent = UIAction(title: "Newest first", image: sortBy == "latest" ? checkIcon : nil) { _ in
-            self.sortBy = "latest"
+        let sortByMostRecent = UIAction(title: "Newest first", image: sortBy == .latest ? checkIcon : nil) { _ in
+            self.sortBy = .latest
             self.currentPageNumber = 1
         }
-        let sortByOldest = UIAction(title: "Oldest first", image: sortBy == "oldest" ? checkIcon : nil) { _ in
-            self.sortBy = "oldest"
+        let sortByOldest = UIAction(title: "Oldest first", image: sortBy == .oldest ? checkIcon : nil) { _ in
+            self.sortBy = .oldest
             self.currentPageNumber = 1
         }
         return UIMenu(title: "Sort by:", options: .displayInline, children: [sortByPopularity, sortByMostRecent, sortByOldest])
