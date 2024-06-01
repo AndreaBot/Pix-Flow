@@ -24,14 +24,14 @@ struct ImageSearcher {
     
     let baseUrl = "https://api.unsplash.com/search/photos/?orientation=portrait"
     
-    func getImages(_ query: String, _ pageNumber: Int, loadingView: NVActivityIndicatorView, sortBy: String)  {
+    func getImages(_ query: String, _ pageNumber: Int, loadingView: NVActivityIndicatorView, sortBy: SortType)  {
         if let encodedText = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(pageNumber)&per_page=\(ImageSearcher.imagesPerPage)&order_by=\(sortBy)&client_id=\(ImageSearcher.apiKey)"
-            performRequest(with: searchUrl, loadingView)
+            let searchUrl = "\(baseUrl)&query=\(encodedText)&page=\(pageNumber)&per_page=\(ImageSearcher.imagesPerPage)&order_by=\(sortBy.rawValue)&client_id=\(ImageSearcher.apiKey)"
+            performRequest(with: searchUrl, loadingView, sortBy)
         }
     }
     
-    func performRequest(with urlString: String, _ loadingView: NVActivityIndicatorView) {
+    func performRequest(with urlString: String, _ loadingView: NVActivityIndicatorView, _ sortBy: SortType) {
         if let url = URL(string: urlString) {
             DispatchQueue.main.async {
                 loadingView.startAnimating()
@@ -42,7 +42,12 @@ struct ImageSearcher {
                     delegate?.didFailWithError(error: error)
                     return
                 } else if let safeData = data {
-                    if let allResults = parseJSON(safeData, loadingView) {
+                    if var allResults = parseJSON(safeData, loadingView) {
+                        
+                        //WORKAROUND FOR A BUG WITHIN THE UNSLAPSH API WHERE SORTING RESULTS BY OLDEST RETURNS THE SAME AS SORTING THEM BY POULARITY INSTEAD. THIS WORKAROUND THEREFORE REVERSES THE POPULARITY ORDER BUT AT LEAST THE USER GETS DIFFERENT IMAGES.
+                        if sortBy == .oldest {
+                            allResults = allResults.reversed()
+                        }
                         delegate?.populateArray(modelArray: allResults)
                     }
                 }

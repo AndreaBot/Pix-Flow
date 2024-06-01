@@ -35,7 +35,7 @@ class ResultsViewController: UIViewController {
         didSet {
             pageCountLabel.text = "\(currentPageNumber)/\(totalPageNumber!)"
             collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-            searcher.getImages(topic!, currentPageNumber, loadingView: loadingAnimation, sortBy: sortBy.rawValue)
+            searcher.getImages(topic!, currentPageNumber, loadingView: loadingAnimation, sortBy: sortBy)
             if currentPageNumber == 1 {
                 prevPageButton.isEnabled = false
                 prevPageButton.alpha = 0.3
@@ -77,7 +77,7 @@ class ResultsViewController: UIViewController {
         
         if let topic = topic {
             title = topic
-            searcher.getImages(topic, currentPageNumber, loadingView: loadingAnimation, sortBy: sortBy.rawValue)
+            searcher.getImages(topic, currentPageNumber, loadingView: loadingAnimation, sortBy: sortBy)
         }
         
         prevPageButton.isEnabled = false
