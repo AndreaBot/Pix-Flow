@@ -9,6 +9,8 @@ import UIKit
 
 class FavouritesViewController: UIViewController {
     
+    
+    @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var noFavsLabel: UILabel!
     
@@ -21,6 +23,7 @@ class FavouritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navBar.topItem?.title = "My Favourites"
         coreDataManager.delegate = self
         collectionView.backgroundColor = .systemBackground
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()

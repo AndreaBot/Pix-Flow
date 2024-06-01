@@ -19,14 +19,8 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "PixFlow"
         
-        let imageView = UIImageView(image: UIImage(named: "VC Title"))
-        imageView.contentMode = .scaleAspectFit
-        navigationItem.titleView = imageView
-        
-        for button in categoryButtons {
-            button.layer.cornerRadius = 10
-        }
         searchBackground.layer.cornerRadius = 10
         searchButton.layer.cornerRadius = 5
         searchField.attributedPlaceholder = NSAttributedString(
@@ -36,7 +30,6 @@ class SearchViewController: UIViewController {
         searchField.delegate = self
         let exitKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(exitKeyboard)
-        
     }
     
     @objc func hideKeyboard() {
