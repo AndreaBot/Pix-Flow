@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum SortType: String {
+enum SortType: String, CaseIterable {
     case popular, latest, oldest
 }

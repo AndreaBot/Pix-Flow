@@ -93,19 +93,16 @@ class ResultsViewController: UIViewController {
     
     func setupMenu() -> UIMenu {
         let checkIcon = UIImage(systemName: "checkmark")
-        let sortByPopularity = UIAction(title: "Most popular", image: sortBy == .popular ? checkIcon : nil) { _ in
-            self.sortBy = .popular
-            self.currentPageNumber = 1
+        var children = [UIAction]()
+        
+        for sortType in SortType.allCases {
+            let newAction = UIAction(title: "\(sortType.rawValue.capitalized) first", image: sortBy == sortType ? checkIcon : nil) { _ in
+                self.sortBy = sortType
+                self.currentPageNumber = 1
+            }
+            children.append(newAction)
         }
-        let sortByMostRecent = UIAction(title: "Newest first", image: sortBy == .latest ? checkIcon : nil) { _ in
-            self.sortBy = .latest
-            self.currentPageNumber = 1
-        }
-        let sortByOldest = UIAction(title: "Oldest first", image: sortBy == .oldest ? checkIcon : nil) { _ in
-            self.sortBy = .oldest
-            self.currentPageNumber = 1
-        }
-        return UIMenu(title: "Sort by:", options: .displayInline, children: [sortByPopularity, sortByMostRecent, sortByOldest])
+        return UIMenu(title: "Sort by:", options: .displayInline, children: children)
     }
     
     func createMenuButton() -> UIBarButtonItem {
