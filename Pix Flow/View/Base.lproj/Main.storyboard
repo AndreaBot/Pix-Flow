@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="GAd-a9-Fl6" userLabel="Main Stack View">
-                                <rect key="frame" x="0.0" y="146" width="375" height="442"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="494"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XwB-YH-NDY">
                                         <rect key="frame" x="30" y="0.0" width="315" height="50"/>
@@ -59,63 +59,47 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="SC8-c7-dw2" userLabel="Categories Stack View">
-                                        <rect key="frame" x="30" y="70" width="315" height="372"/>
+                                        <rect key="frame" x="30" y="70" width="315" height="424"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="wu6-pL-Vt5" userLabel="Left Stack View">
-                                                <rect key="frame" x="0.0" y="0.0" width="147.5" height="372"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="147.5" height="424"/>
                                                 <subviews>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1p1-Im-tOH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="147.5" height="85"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="147.5" height="98"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="Cars" backgroundImage="Cars"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Cars">
-                                                            <backgroundConfiguration key="background" image="Cars" imageContentMode="scaleAspectFill"/>
-                                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="22"/>
-                                                        </buttonConfiguration>
                                                         <connections>
                                                             <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CUd-lJ-ahu"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iDk-d7-rgh">
-                                                        <rect key="frame" x="0.0" y="96" width="147.5" height="84.5"/>
+                                                        <rect key="frame" x="0.0" y="109" width="147.5" height="97.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="Nature" backgroundImage="Nature"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Nature">
-                                                            <backgroundConfiguration key="background" image="Nature" imageContentMode="scaleAspectFill"/>
-                                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="22"/>
-                                                        </buttonConfiguration>
                                                         <connections>
                                                             <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pev-Ny-Wnd"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bGl-C9-1nr">
-                                                        <rect key="frame" x="0.0" y="191.5" width="147.5" height="85"/>
+                                                        <rect key="frame" x="0.0" y="217.5" width="147.5" height="98"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="Space" backgroundImage="Space"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Space">
-                                                            <backgroundConfiguration key="background" image="Space" imageContentMode="scaleAspectFill"/>
-                                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="22"/>
-                                                        </buttonConfiguration>
                                                         <connections>
                                                             <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8eT-dE-OGd"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHf-M9-u0q">
-                                                        <rect key="frame" x="0.0" y="287.5" width="147.5" height="84.5"/>
+                                                        <rect key="frame" x="0.0" y="326.5" width="147.5" height="97.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="B&amp;W" backgroundImage="B&amp;W"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="B&amp;W">
-                                                            <backgroundConfiguration key="background" image="B&amp;W" imageContentMode="scaleAspectFill"/>
-                                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="22"/>
-                                                        </buttonConfiguration>
                                                         <connections>
                                                             <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Pf-gd-X9z"/>
                                                         </connections>
@@ -123,60 +107,44 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="Rcp-aY-Sn9" userLabel="Right Stack View">
-                                                <rect key="frame" x="167.5" y="0.0" width="147.5" height="372"/>
+                                                <rect key="frame" x="167.5" y="0.0" width="147.5" height="424"/>
                                                 <subviews>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sY6-nD-TPe">
-                                                        <rect key="frame" x="0.0" y="0.0" width="147.5" height="85"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="147.5" height="98"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="Cities" backgroundImage="Cities"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Cities">
-                                                            <backgroundConfiguration key="background" image="Cities" imageContentMode="scaleAspectFill"/>
-                                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="22"/>
-                                                        </buttonConfiguration>
                                                         <connections>
                                                             <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jVb-Pa-OgP"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k9b-vj-tVg">
-                                                        <rect key="frame" x="0.0" y="96" width="147.5" height="84.5"/>
+                                                        <rect key="frame" x="0.0" y="109" width="147.5" height="97.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="Abstract" backgroundImage="Abstract"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Abstract">
-                                                            <backgroundConfiguration key="background" image="Abstract" imageContentMode="scaleAspectFill"/>
-                                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="22"/>
-                                                        </buttonConfiguration>
                                                         <connections>
                                                             <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qwo-KK-xYv"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LVq-O5-05c">
-                                                        <rect key="frame" x="0.0" y="191.5" width="147.5" height="85"/>
+                                                        <rect key="frame" x="0.0" y="217.5" width="147.5" height="98"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="Animals" backgroundImage="Animals"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Animals">
-                                                            <backgroundConfiguration key="background" image="Animals" imageContentMode="scaleAspectFill"/>
-                                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="22"/>
-                                                        </buttonConfiguration>
                                                         <connections>
                                                             <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aEt-Z9-4wO"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fTU-Em-5K3">
-                                                        <rect key="frame" x="0.0" y="287.5" width="147.5" height="84.5"/>
+                                                        <rect key="frame" x="0.0" y="326.5" width="147.5" height="97.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="Illustrations" backgroundImage="Illustrations"/>
-                                                        <buttonConfiguration key="configuration" style="plain" title="Illustrations">
-                                                            <backgroundConfiguration key="background" image="Illustrations" imageContentMode="scaleAspectFill"/>
-                                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="22"/>
-                                                        </buttonConfiguration>
                                                         <connections>
                                                             <action selector="searchCategory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SFy-kk-k0J"/>
                                                         </connections>
@@ -437,13 +405,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sYt-Z5-YHE">
-                                <rect key="frame" x="10" y="116" width="355" height="487"/>
+                                <rect key="frame" x="10" y="64" width="355" height="539"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BeS-Sc-b25">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="444"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="496"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="left" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9nN-g7-rcg" userLabel="Info Stack View">
-                                        <rect key="frame" x="0.0" y="452" width="355" height="35"/>
+                                        <rect key="frame" x="0.0" y="504" width="355" height="35"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y6F-cc-Xg2" userLabel="PhotographerPic Image View">
                                                 <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -519,8 +487,8 @@
                         <outlet property="downloadButton" destination="Rhb-4k-1B9" id="Ep5-mS-CtX"/>
                         <outlet property="imageView" destination="BeS-Sc-b25" id="QFU-fz-Q6e"/>
                         <outlet property="loadingView" destination="C0N-7d-mCk" id="aKa-1q-q3S"/>
+                        <outlet property="photographerNameButton" destination="5Ua-0i-8BV" id="IaX-ns-ThU"/>
                         <outlet property="photographerProfilePicView" destination="Y6F-cc-Xg2" id="bIV-xK-Q2Z"/>
-                        <outlet property="photogtapherNameButton" destination="5Ua-0i-8BV" id="IaX-ns-ThU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jqx-J8-Qhp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -533,8 +501,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HiG-pV-RHt" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="85L-4h-5ae"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="QMh-4j-mOv">
-                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QMh-4j-mOv">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

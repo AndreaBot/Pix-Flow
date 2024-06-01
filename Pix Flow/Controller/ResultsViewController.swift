@@ -54,21 +54,28 @@ class ResultsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = topic!
-        
-        prevPageButton.isEnabled = false
-        prevPageButton.alpha = 0.3
-        collectionView.backgroundColor = .systemBackground
+        setupUI()
+    }
+    
+    func setupUI() {
+        navigationController?.navigationBar.prefersLargeTitles = false
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
         searcher.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
-        searcher.getImages(topic!, currentPageNumber, loadingView: loadingAnimation)
+        
+        if let topic = topic {
+            title = topic
+            searcher.getImages(topic, currentPageNumber, loadingView: loadingAnimation)
+        }
+        
+        prevPageButton.isEnabled = false
+        prevPageButton.alpha = 0.3
+        collectionView.backgroundColor = .systemBackground
     }
     
     @IBAction func prevPagePressed(_ sender: UIButton) {
-        
         if currentPageNumber > 1 {
             currentPageNumber -= 1
             nextPageButton.isEnabled = true
@@ -83,6 +90,7 @@ class ResultsViewController: UIViewController {
         nextPageButton.isEnabled = currentPageNumber == totalPageNumber ? false : true
     }
 }
+
 
 //MARK: - ImageSearcherDelegate
 

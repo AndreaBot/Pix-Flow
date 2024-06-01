@@ -72,12 +72,12 @@ struct ImageSearcher {
         }
     }
     
-    static func setImages(with urlString1: String, _ urlString2: String, _ NVActivityIndicatorView: NVActivityIndicatorView, _ downloadButton: UIBarButtonItem, _ favouriteButton: UIBarButtonItem, _ completion: @escaping (UIImage?, UIImage?) -> Void) {
+    static func setImages(with urlString1: String, and urlString2: String, _ NVActivityIndicatorView: NVActivityIndicatorView, _ downloadButton: UIBarButtonItem, _ favouriteButton: UIBarButtonItem, _ completion: @escaping (UIImage?, UIImage?) -> Void) {
         
         let linkArray = [urlString1, urlString2]
         let group = DispatchGroup()
-        var image1: UIImage?
-        var image2: UIImage?
+        var fullImage: UIImage?
+        var photographerProfilePic: UIImage?
         
         NVActivityIndicatorView.startAnimating()
         
@@ -97,22 +97,23 @@ struct ImageSearcher {
                     
                     switch index {
                     case 0:
-                        image1 = image
+                        fullImage = image
                     case 1:
-                        image2 = image
+                        photographerProfilePic = image
                     default:
                         break
                     }
                     DispatchQueue.main.async {
-                        completion(image1, image2)
+                        completion(fullImage, photographerProfilePic)
                     }
                 }
-            }.resume()
+            }
+            .resume()
         }
         
         group.notify(queue: .main) {
             NVActivityIndicatorView.stopAnimating()
-            completion(image1, image2)
+            completion(fullImage, photographerProfilePic)
             downloadButton.isEnabled = true
             favouriteButton.isEnabled = true
         }

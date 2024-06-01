@@ -19,14 +19,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "PixFlow"
-        
-        searchBackground.layer.cornerRadius = 10
-        searchButton.layer.cornerRadius = 5
-        searchField.attributedPlaceholder = NSAttributedString(
-            string: "Type a keyword",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
-        )
+        setupUI()
         searchField.delegate = self
         let exitKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(exitKeyboard)
@@ -38,6 +31,7 @@ class SearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        navigationController?.navigationBar.prefersLargeTitles = true
         searchField.text = ""
     }
     
@@ -53,6 +47,19 @@ class SearchViewController: UIViewController {
         }
         searchField.endEditing(true)
         performSegue(withIdentifier: "goToResults", sender: self)
+    }
+    
+    func setupUI() {
+        title = "PixFlow"
+        for button in categoryButtons {
+            button.layer.cornerRadius = 8
+        }
+        searchBackground.layer.cornerRadius = 10
+        searchButton.layer.cornerRadius = 5
+        searchField.attributedPlaceholder = NSAttributedString(
+            string: "Type a keyword",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
     }
     
     func setupSearch() {

@@ -23,18 +23,19 @@ class FavouritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+    }
+    
+    func setupUI() {
         navBar.topItem?.title = "My Favourites"
         coreDataManager.delegate = self
         collectionView.backgroundColor = .systemBackground
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
-        
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         let hideOverlays = UITapGestureRecognizer(target: self, action: #selector(handleCollectionViewTap(_:)))
         collectionView.addGestureRecognizer(hideOverlays)
-        
     }
     
     @objc func handleCollectionViewTap(_ sender: UITapGestureRecognizer) {

@@ -13,7 +13,7 @@ import NVActivityIndicatorView
 class FullScreenViewController: UIViewController {
     
     @IBOutlet weak var photographerProfilePicView: UIImageView!
-    @IBOutlet weak var photogtapherNameButton: UIButton!
+    @IBOutlet weak var photographerNameButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var downloadButton: UIBarButtonItem!
     @IBOutlet weak var addFavouriteButton: UIBarButtonItem!
@@ -45,25 +45,28 @@ class FullScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+    }
+    
+    func setupUI() {
         downloadButton.isEnabled = false
         addFavouriteButton.isEnabled = false
-        
-        let attributedString = NSMutableAttributedString(string: "\(String(describing: photographerName)) on Unsplash.com")
-        
-        attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 20), range: NSRange(location: 0, length: photographerName.count))
-        
-        attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 12), range: NSRange(location: (photographerName.count)+1, length: 15))
-        
-        attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: attributedString.length))
-        
-        ImageSearcher.setImages(with: fullImgLink, photographerPicLink ,loadingView, downloadButton, addFavouriteButton) { [weak self] (image1, image2) in
+        photographerProfilePicView.layer.cornerRadius = 18
+        formatBottomText()
+        ImageSearcher.setImages(with: fullImgLink, and: photographerPicLink, loadingView, downloadButton, addFavouriteButton) { [weak self] (image1, image2) in
             DispatchQueue.main.async {
                 self?.imageView.image = image1
                 self?.photographerProfilePicView.image = image2
             }
         }
-        photographerProfilePicView.layer.cornerRadius = 18
-        photogtapherNameButton.setAttributedTitle(attributedString, for: .normal)
+    }
+    
+    func formatBottomText() {
+        let attributedString = NSMutableAttributedString(string: "\(String(describing: photographerName)) on Unsplash.com")
+        attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 20), range: NSRange(location: 0, length: photographerName.count))
+        attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 12), range: NSRange(location: (photographerName.count)+1, length: 15))
+        attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: attributedString.length))
+        photographerNameButton.setAttributedTitle(attributedString, for: .normal)
     }
     
     
