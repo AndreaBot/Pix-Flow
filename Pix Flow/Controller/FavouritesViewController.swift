@@ -64,7 +64,7 @@ class FavouritesViewController: UIViewController {
 
 //MARK: - UICollectionViewDelegate, DataSource, DelegateFlowLayout
 
-extension FavouritesViewController: UICollectionViewDelegate {
+extension FavouritesViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         for (index, image) in coreDataManager.favourites.enumerated() {
@@ -98,26 +98,6 @@ extension FavouritesViewController: UICollectionViewDataSource {
         
         cell.delegate = self
         return cell
-    }
-}
-
-extension FavouritesViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let photoWidth: CGFloat = 720.0
-        let photoHeight: CGFloat = 1080.0
-        let collectionViewWidth = collectionView.bounds.width
-        
-        let sectionInsetLeftRight: CGFloat = 10.0
-        let contentInsetLeftRight = collectionView.contentInset.left + collectionView.contentInset.right
-        
-        let availableWidth = collectionViewWidth - sectionInsetLeftRight - contentInsetLeftRight
-        
-        let cellWidth = availableWidth / 2.0
-        let cellHeight = (photoHeight / photoWidth) * cellWidth
-        
-        return CGSize(width: cellWidth, height: cellHeight)
     }
 }
 

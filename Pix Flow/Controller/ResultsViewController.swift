@@ -162,9 +162,9 @@ extension ResultsViewController: ImageSearcherDelegate {
 }
 
 
-//MARK: - UICollectionViewDelegate, DataSource, DelegateFlowLayout
+//MARK: - UICollectionViewDelegate, DataSource
 
-extension ResultsViewController: UICollectionViewDelegate {
+extension ResultsViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedImage = searchResults[indexPath.item]
         performSegue(withIdentifier: "goToFullScreen", sender: self)
@@ -194,26 +194,5 @@ extension ResultsViewController: UICollectionViewDataSource {
         cell.deleteButton.isHidden = true
         
         return cell
-    }
-}
-
-
-extension ResultsViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let photoWidth: CGFloat = 720.0
-        let photoHeight: CGFloat = 1080.0
-        let collectionViewWidth = collectionView.bounds.width
-        
-        let sectionInsetLeftRight: CGFloat = 10.0
-        let contentInsetLeftRight = collectionView.contentInset.left + collectionView.contentInset.right
-        
-        let availableWidth = collectionViewWidth - sectionInsetLeftRight - contentInsetLeftRight
-        
-        let cellWidth = availableWidth / 2.0
-        let cellHeight = (photoHeight / photoWidth) * cellWidth
-        
-        return CGSize(width: cellWidth, height: cellHeight)
     }
 }
